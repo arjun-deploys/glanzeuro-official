@@ -7,13 +7,11 @@ import {
   ArrowUpRight,
   Check,
   Menu,
-  MoveRight,
   Plus,
   X,
 } from "lucide-react"
 import {
   audiences,
-  courses,
   frenchLevels,
   getCourse,
   images,
@@ -37,7 +35,6 @@ const navItems = [
 ] as const
 
 function BrandLogo({
-  light = false,
   compact = false,
 }: {
   light?: boolean
@@ -328,7 +325,7 @@ function LearningTrack() {
           </p>
         </div>
         <div className="track-list">
-          {whatWeDo.map((item, index) => (
+          {whatWeDo.map((item) => (
             <div className="track-item" key={item.title}>
               <div className="track-index">{item.number}</div>
               <div className="track-dot" />
@@ -495,7 +492,7 @@ function AudienceSection() {
         </div>
 
         <div className="audience-grid">
-          {audiences.map((audience, index) => (
+          {audiences.map((audience) => (
             <div key={audience.title} className="audience-card">
               <span className="audience-card__dot" aria-hidden="true" />
               <h3>{audience.title}</h3>
@@ -823,7 +820,6 @@ function CoursePage({
   const course = getCourse(language, level)
   if (!course) return <NotFound />
   const [open, setOpen] = useState(course.sections[0])
-  const isB2 = course.level === "B2"
   return (
     <PageFrame>
       <main
