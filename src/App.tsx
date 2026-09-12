@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { Link, Route, Switch, useLocation } from "wouter"
+import { Video, Mic, LayoutGrid, ClipboardCheck, Globe } from "lucide-react"
 import {
   ArrowDownRight,
   ArrowLeft,
@@ -26,6 +27,7 @@ import {
 import "./index.css"
 
 import logo from "../public/img/glanzeuro_logo.png"
+import hero from "../public/img/hero.png"
 
 const navItems = [
   ["Home", "/"],
@@ -45,7 +47,7 @@ function BrandLogo({
       <img
         src={logo}
         alt="Glanzeuro Lingo logo"
-        className={`${compact ? "w-36!" : "w-64!"}`}
+        className={`${compact ? "w-36!" : "w-36! md:w-54!"}`}
       />
     </Link>
   )
@@ -92,6 +94,97 @@ function SectionLabel({
   )
 }
 
+// function Header() {
+//   const [scrolled, setScrolled] = useState(false)
+//   const [menuOpen, setMenuOpen] = useState(false)
+//   const [location] = useLocation()
+
+//   useEffect(() => {
+//     const onScroll = () => setScrolled(window.scrollY > 20)
+//     onScroll()
+//     window.addEventListener("scroll", onScroll, { passive: true })
+//     return () => window.removeEventListener("scroll", onScroll)
+//   }, [])
+
+//   useEffect(() => setMenuOpen(false), [location])
+
+//   return (
+//     <>
+//       <header
+//         className={`site-header ${scrolled ? "site-header--scrolled" : ""}`}
+//       >
+//         <button
+//           className="menu-trigger"
+//           onClick={() => setMenuOpen(true)}
+//           aria-label="Open navigation"
+//         >
+//           <Menu size={20} />
+//           <span>Menu</span>
+//         </button>
+//         <div className="header-logo">
+//           <BrandLogo compact={scrolled} />
+//         </div>
+//         {/* <a className="header-enquire" href="/contact">
+//           Enquire now <ArrowUpRight size={16} />
+//         </a> */}
+//         <div className="inline-flex justify-end">
+//           <ArrowButton href="/about" dark>
+//             Enquire now
+//           </ArrowButton>
+//         </div>
+//       </header>
+//       <div
+//         className={`mobile-menu ${menuOpen ? "mobile-menu--open" : ""}`}
+//         aria-hidden={!menuOpen}
+//       >
+//         <div className="menu-drawer__visual">
+//           <div className="menu-drawer__vertical">
+//             GLANZEURO LINGO / ONLINE LANGUAGE TRAINING
+//           </div>
+//           <div className="menu-drawer__word">
+//             <img src={logo} alt="Glanzeuro Lingo logo" className="w-140!" />
+//           </div>
+//           <span className="menu-drawer__caption">Learn • Speak • Succeed.</span>
+//         </div>
+//         <div className="menu-drawer__content">
+//           <div className="mobile-menu__top">
+//             <span className="menu-kicker text-black!">Menu / Explore</span>
+//             <button
+//               onClick={() => setMenuOpen(false)}
+//               aria-label="Close navigation"
+//             >
+//               <X size={26} />
+//             </button>
+//           </div>
+//           <nav className="mobile-menu__nav">
+//             {navItems.map(([label, href], index) => (
+//               <Link key={href} href={href} className="mobile-menu__link">
+//                 <span>0{index + 1}</span>
+//                 {label}
+//                 <ArrowUpRight size={18} />
+//               </Link>
+//             ))}
+//           </nav>
+//           <div className="mobile-menu__footer">
+//             <div>
+//               <span>Call / WhatsApp</span>
+//               <a href={`tel:${phone}`} className="text-black!">
+//                 {phone}
+//               </a>
+//             </div>
+//             <ArrowButton href="/about" dark>
+//               Enquire now
+//             </ArrowButton>
+//             {/* <Link href="/contact" className="menu-drawer__cta">
+//               Enquire now <ArrowUpRight size={16} />
+//             </Link> */}
+//           </div>
+//         </div>
+//       </div>
+//     </>
+//   )
+// }
+
 function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
@@ -122,14 +215,27 @@ function Header() {
         <div className="header-logo">
           <BrandLogo compact={scrolled} />
         </div>
-        {/* <a className="header-enquire" href="/contact">
+        <nav className="desktop-nav" aria-label="Primary navigation">
+          {[
+            ["Home", "/"],
+            ["About", "/about"],
+            ["Courses", "/french"],
+            ["Our Approach", "/#approach"],
+            ["Testimonials", "/#testimonials"],
+            ["Contact", "/contact"],
+          ].map(([label, href]) => (
+            <Link
+              key={label}
+              href={href}
+              className={location === href ? "active" : ""}
+            >
+              {label}
+            </Link>
+          ))}
+        </nav>
+        <a className="header-enquire" href="/contact">
           Enquire now <ArrowUpRight size={16} />
-        </a> */}
-        <div className="inline-flex justify-end">
-          <ArrowButton href="/about" dark>
-            Enquire now
-          </ArrowButton>
-        </div>
+        </a>
       </header>
       <div
         className={`mobile-menu ${menuOpen ? "mobile-menu--open" : ""}`}
@@ -140,13 +246,15 @@ function Header() {
             GLANZEURO LINGO / ONLINE LANGUAGE TRAINING
           </div>
           <div className="menu-drawer__word">
-            <img src={logo} alt="Glanzeuro Lingo logo" className="w-140!" />
+            GLANZEURO
+            <br />
+            <i>LINGO</i>
           </div>
           <span className="menu-drawer__caption">Learn • Speak • Succeed.</span>
         </div>
         <div className="menu-drawer__content">
           <div className="mobile-menu__top">
-            <span className="menu-kicker text-black!">Menu / Explore</span>
+            <span className="menu-kicker">Menu / Explore</span>
             <button
               onClick={() => setMenuOpen(false)}
               aria-label="Close navigation"
@@ -166,16 +274,11 @@ function Header() {
           <div className="mobile-menu__footer">
             <div>
               <span>Call / WhatsApp</span>
-              <a href={`tel:${phone}`} className="text-black!">
-                {phone}
-              </a>
+              <a href={`tel:${phone}`}>{phone}</a>
             </div>
-            <ArrowButton href="/about" dark>
-              Enquire now
-            </ArrowButton>
-            {/* <Link href="/contact" className="menu-drawer__cta">
+            <Link href="/contact" className="menu-drawer__cta">
               Enquire now <ArrowUpRight size={16} />
-            </Link> */}
+            </Link>
           </div>
         </div>
       </div>
@@ -228,6 +331,81 @@ function PageFrame({ children }: { children: React.ReactNode }) {
     </div>
   )
 }
+
+// function Hero() {
+//   return (
+//     <section className="hero section-pink">
+//       <div className="hero-orbit" aria-hidden="true" />
+//       <div className="hero-grid container">
+//         <div className="hero-copy">
+//           <SectionLabel number="01">Online language training</SectionLabel>
+//           <h1>
+//             Learn French
+//             <br />
+//             <em>&amp;</em> Dutch <span>Online.</span>
+//           </h1>
+//           <p className="hero-lede">Learn to Speak With Confidence.</p>
+//           <p className="hero-description">
+//             Structured and interactive online French and Dutch language training
+//             designed to help you build real communication skills — from your
+//             first lesson to confident conversations.
+//           </p>
+//           <div className="hero-actions">
+//             <ArrowButton href="/contact">Enquire now</ArrowButton>
+//             <a
+//               className="text-link"
+//               href={whatsappHref}
+//               target="_blank"
+//               rel="noreferrer"
+//             >
+//               Call / WhatsApp <ArrowUpRight size={16} />
+//             </a>
+//           </div>
+//           <div className="hero-proof">
+//             <span>Live Online Classes</span>
+//             <span>Speaking Focused</span>
+//             <span>Interactive Learning</span>
+//             <span>Certificate on Completion</span>
+//           </div>
+//         </div>
+//         <div className="hero-visual">
+//           <div className="hero-gold-shape" aria-hidden="true" />
+//           <img
+//             src={images.hero}
+//             alt="Learners practising language together around a table"
+//             fetchPriority="high"
+//           />
+//           <div className="hero-caption">
+//             <span>01 / 04</span>
+//             <span>Language is a meeting place.</span>
+//           </div>
+//         </div>
+//       </div>
+//       <div className="hero-levels container">
+//         <div>
+//           <span>French</span>
+//           <strong>A1</strong>
+//           <i>—</i>
+//           <strong>A2</strong>
+//           <i>—</i>
+//           <strong>B1</strong>
+//           <i>—</i>
+//           <strong>B2</strong>
+//         </div>
+//         <div>
+//           <span>Dutch</span>
+//           <strong>A1</strong>
+//           <i>—</i>
+//           <strong>A2</strong>
+//           <i>—</i>
+//           <strong>B1</strong>
+//           <i>—</i>
+//           <strong>B2</strong>
+//         </div>
+//       </div>
+//     </section>
+//   )
+// }
 
 function Hero() {
   return (
@@ -298,6 +476,243 @@ function Hero() {
           <strong>B1</strong>
           <i>—</i>
           <strong>B2</strong>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function ReferenceHero() {
+  return (
+    <section className="reference-hero">
+      <div className="reference-ribbon reference-ribbon--one" />
+      <div className="reference-ribbon reference-ribbon--two" />
+      <div className="reference-hero__inner container">
+        <img
+          src={hero}
+          alt="Reference-inspired Glanzeuro Lingo hero artwork with a language learner and European line art"
+
+          className="hero-highlight-image"
+        />
+        <div className="reference-hero__copy">
+          <SectionLabel number="01">Online language training</SectionLabel>
+          <h1>
+            Learn Today,
+            <br />
+            <em>A Brighter</em>
+            <br />
+            Tomorrow.
+          </h1>
+          <p>
+            French and Dutch language training designed to help you build
+            confidence, communicate effectively and unlock global opportunities.
+          </p>
+          <div className="reference-actions">
+            <ArrowButton href="#courses">Explore courses</ArrowButton>
+            <a
+              className="whatsapp-pill"
+              href={whatsappHref}
+              target="_blank"
+              rel="noreferrer"
+            >
+              ◌&nbsp; Chat on WhatsApp <ArrowUpRight size={15} />
+            </a>
+          </div>
+          <div className="reference-proof">
+            <span>People</span>
+            <i>|</i>
+            <span>Languages</span>
+            <i>|</i>
+            <span>Opportunities</span>
+          </div>
+        </div>
+        <div className="reference-hero__visual flex md:hidden">
+          <div className="reference-orbit" />
+          <img
+            src={hero}
+            alt="Reference-inspired Glanzeuro Lingo hero artwork with a language learner and European line art"
+            fetchPriority="high"
+            className=""
+          />
+          <div className="reference-script">
+            More
+            <br />
+            than a language.
+            <br />
+            <b>
+              A world of
+              <br />
+              opportunities.
+            </b>
+          </div>
+        </div>
+      </div>
+      <CourseCards />
+    </section>
+  )
+}
+
+function CourseCards() {
+  return (
+    <div className="course-cards container" id="courses">
+      <div className="reference-course-card">
+        <img
+          src={images.french}
+          alt="Eiffel Tower representing French learning"
+        />
+        <div>
+          <h3>French</h3>
+          <p>From basics to confident communication</p>
+          <div className="course-levels">
+            {frenchLevels.map((item) => (
+              <Link key={item.level} href={item.href}>
+                {item.level}
+              </Link>
+            ))}
+          </div>
+          <ArrowButton href="/french">View French courses</ArrowButton>
+        </div>
+      </div>
+      <div className="reference-course-card">
+        <img src={images.dutch} alt="Dutch learning course image" />
+        <div>
+          <h3>Dutch</h3>
+          <p>Learn. Practise. Progress.</p>
+          <div className="course-levels">
+            {dutchLevels.map((item) => (
+              <Link key={item.level} href={item.href}>
+                {item.level}
+              </Link>
+            ))}
+          </div>
+          <ArrowButton href="/dutch">View Dutch courses</ArrowButton>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function FeatureStrip() {
+  const features = [
+    [Video, "Live", "Online Classes"],
+    [Mic, "Speaking", "Practice"],
+    [LayoutGrid, "Structured", "Curriculum"],
+    [ClipboardCheck, "Continuous", "Assessment"],
+    [Globe, "Global", "Opportunities"],
+  ]
+  return (
+    <section className="feature-strip" id="certificate">
+      <div className="feature-strip__grid container">
+        {features.map(([Icon, first, second]: any) => (
+          <div className="feature-item" key={first}>
+            <span>
+              <Icon size={24} strokeWidth={1.75} />
+            </span>
+            <p>
+              {first}
+              <br />
+              {second}
+            </p>
+          </div>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+function AboutPreview() {
+  return (
+    <section className="reference-about" id="approach">
+      <div className="reference-about__grid container">
+        <div>
+          <SectionLabel number="02">About Glanzeuro Lingo</SectionLabel>
+          <h2>
+            A new language,
+            <br />
+            <em>a new you.</em>
+          </h2>
+          <p>
+            Glanzeuro Lingo is a language training institute focused on
+            structured, practical and learner-centred French and Dutch language
+            education. We help learners build confidence in real-life
+            communication and prepare for academic, career and global
+            opportunities.
+          </p>
+          <ArrowButton href="/about">Know more about us</ArrowButton>
+        </div>
+        <div className="reference-about__image">
+          <img
+            src={images.about}
+            alt="Language learning books and a warm study table"
+            loading="lazy"
+          />
+          <span>Learn • Speak • Succeed.</span>
+        </div>
+      </div>
+      <div className="reference-stats container">
+        <div>
+          <strong>500+</strong>
+          <span>Learners Trained</span>
+        </div>
+        <div>
+          <strong>2</strong>
+          <span>Languages</span>
+        </div>
+        <div>
+          <strong>Global</strong>
+          <span>Opportunities</span>
+        </div>
+        <div>
+          <strong>4.8/5</strong>
+          <span>Learner Satisfaction</span>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function ReferenceTestimonials() {
+  return (
+    <section className="reference-testimonials" id="testimonials">
+      <div className="reference-testimonials__grid container">
+        <div>
+          <SectionLabel number="03">Learner voices</SectionLabel>
+          <h2>
+            What Our
+            <br />
+            <em>Learners Say</em>
+          </h2>
+        </div>
+        <div className="reference-quote-wrap">
+          <Testimonials />
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function ReferenceCta() {
+  return (
+    <section className="reference-cta">
+      <div className="reference-cta__inner container">
+        <div>
+          <h2>
+            Ready to Start Your
+            <br />
+            <em>Language Journey?</em>
+          </h2>
+          <p>Learn. Speak. Succeed. with Glanzeuro Lingo.</p>
+        </div>
+        <div className="reference-actions">
+          <ArrowButton href="/contact">Enquire now</ArrowButton>
+          <a
+            className="whatsapp-pill"
+            href={whatsappHref}
+            target="_blank"
+            rel="noreferrer"
+          >
+            ◌&nbsp; Chat on WhatsApp <ArrowUpRight size={15} />
+          </a>
         </div>
       </div>
     </section>
@@ -723,15 +1138,18 @@ function Home() {
   return (
     <PageFrame>
       <main>
-        <Hero />
+        <ReferenceHero />
+        <FeatureStrip />
+        <AboutPreview />
         <LearningTrack />
         <LanguageSection language="french" />
         <LanguageSection language="dutch" />
         <Manifesto />
-        <AudienceSection />
+        {/* <AudienceSection /> */}
         <MentorSection />
-        <Testimonials />
-        <GuidanceForm />
+        <ReferenceTestimonials />
+        {/* <Testimonials /> */}
+        <ReferenceCta />
       </main>
     </PageFrame>
   )
