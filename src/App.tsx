@@ -12,7 +12,6 @@ import {
   X,
 } from "lucide-react"
 import {
-  audiences,
   frenchLevels,
   getCourse,
   images,
@@ -407,80 +406,80 @@ function PageFrame({ children }: { children: React.ReactNode }) {
 //   )
 // }
 
-function Hero() {
-  return (
-    <section className="hero section-pink">
-      <div className="hero-orbit" aria-hidden="true" />
-      <div className="hero-grid container">
-        <div className="hero-copy">
-          <SectionLabel number="01">Online language training</SectionLabel>
-          <h1>
-            Learn French
-            <br />
-            <em>&amp;</em> Dutch <span>Online.</span>
-          </h1>
-          <p className="hero-lede">Learn to Speak With Confidence.</p>
-          <p className="hero-description">
-            Structured and interactive online French and Dutch language training
-            designed to help you build real communication skills — from your
-            first lesson to confident conversations.
-          </p>
-          <div className="hero-actions">
-            <ArrowButton href="/contact">Enquire now</ArrowButton>
-            <a
-              className="text-link"
-              href={whatsappHref}
-              target="_blank"
-              rel="noreferrer"
-            >
-              Call / WhatsApp <ArrowUpRight size={16} />
-            </a>
-          </div>
-          <div className="hero-proof">
-            <span>Live Online Classes</span>
-            <span>Speaking Focused</span>
-            <span>Interactive Learning</span>
-            <span>Certificate on Completion</span>
-          </div>
-        </div>
-        <div className="hero-visual">
-          <div className="hero-gold-shape" aria-hidden="true" />
-          <img
-            src={images.hero}
-            alt="Learners practising language together around a table"
-            fetchPriority="high"
-          />
-          <div className="hero-caption">
-            <span>01 / 04</span>
-            <span>Language is a meeting place.</span>
-          </div>
-        </div>
-      </div>
-      <div className="hero-levels container">
-        <div>
-          <span>French</span>
-          <strong>A1</strong>
-          <i>—</i>
-          <strong>A2</strong>
-          <i>—</i>
-          <strong>B1</strong>
-          <i>—</i>
-          <strong>B2</strong>
-        </div>
-        <div>
-          <span>Dutch</span>
-          <strong>A1</strong>
-          <i>—</i>
-          <strong>A2</strong>
-          <i>—</i>
-          <strong>B1</strong>
-          <i>—</i>
-          <strong>B2</strong>
-        </div>
-      </div>
-    </section>
-  )
-}
+// function Hero() {
+//   return (
+//     <section className="hero section-pink">
+//       <div className="hero-orbit" aria-hidden="true" />
+//       <div className="hero-grid container">
+//         <div className="hero-copy">
+//           <SectionLabel number="01">Online language training</SectionLabel>
+//           <h1>
+//             Learn French
+//             <br />
+//             <em>&amp;</em> Dutch <span>Online.</span>
+//           </h1>
+//           <p className="hero-lede">Learn to Speak With Confidence.</p>
+//           <p className="hero-description">
+//             Structured and interactive online French and Dutch language training
+//             designed to help you build real communication skills — from your
+//             first lesson to confident conversations.
+//           </p>
+//           <div className="hero-actions">
+//             <ArrowButton href="/contact">Enquire now</ArrowButton>
+//             <a
+//               className="text-link"
+//               href={whatsappHref}
+//               target="_blank"
+//               rel="noreferrer"
+//             >
+//               Call / WhatsApp <ArrowUpRight size={16} />
+//             </a>
+//           </div>
+//           <div className="hero-proof">
+//             <span>Live Online Classes</span>
+//             <span>Speaking Focused</span>
+//             <span>Interactive Learning</span>
+//             <span>Certificate on Completion</span>
+//           </div>
+//         </div>
+//         <div className="hero-visual">
+//           <div className="hero-gold-shape" aria-hidden="true" />
+//           <img
+//             src={images.hero}
+//             alt="Learners practising language together around a table"
+//             fetchPriority="high"
+//           />
+//           <div className="hero-caption">
+//             <span>01 / 04</span>
+//             <span>Language is a meeting place.</span>
+//           </div>
+//         </div>
+//       </div>
+//       <div className="hero-levels container">
+//         <div>
+//           <span>French</span>
+//           <strong>A1</strong>
+//           <i>—</i>
+//           <strong>A2</strong>
+//           <i>—</i>
+//           <strong>B1</strong>
+//           <i>—</i>
+//           <strong>B2</strong>
+//         </div>
+//         <div>
+//           <span>Dutch</span>
+//           <strong>A1</strong>
+//           <i>—</i>
+//           <strong>A2</strong>
+//           <i>—</i>
+//           <strong>B1</strong>
+//           <i>—</i>
+//           <strong>B2</strong>
+//         </div>
+//       </div>
+//     </section>
+//   )
+// }
 
 function ReferenceHero() {
   return (
@@ -887,38 +886,38 @@ function Manifesto() {
   )
 }
 
-function AudienceSection() {
-  return (
-    <section className="audience-section section-pink">
-      <div className="container">
-        <div className="section-intro section-intro--split">
-          <div>
-            <SectionLabel number="06">The goal constellation</SectionLabel>
-            <h2>
-              Built Around
-              <br />
-              <em>Your Goal.</em>
-            </h2>
-          </div>
-          <p>
-            There is no single right reason to learn a language. There is your
-            reason — and a way forward that meets it.
-          </p>
-        </div>
+// function AudienceSection() {
+//   return (
+//     <section className="audience-section section-pink">
+//       <div className="container">
+//         <div className="section-intro section-intro--split">
+//           <div>
+//             <SectionLabel number="06">The goal constellation</SectionLabel>
+//             <h2>
+//               Built Around
+//               <br />
+//               <em>Your Goal.</em>
+//             </h2>
+//           </div>
+//           <p>
+//             There is no single right reason to learn a language. There is your
+//             reason — and a way forward that meets it.
+//           </p>
+//         </div>
 
-        <div className="audience-grid">
-          {audiences.map((audience) => (
-            <div key={audience.title} className="audience-card">
-              <span className="audience-card__dot" aria-hidden="true" />
-              <h3>{audience.title}</h3>
-              <p>{audience.copy}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
+//         <div className="audience-grid">
+//           {audiences.map((audience) => (
+//             <div key={audience.title} className="audience-card">
+//               <span className="audience-card__dot" aria-hidden="true" />
+//               <h3>{audience.title}</h3>
+//               <p>{audience.copy}</p>
+//             </div>
+//           ))}
+//         </div>
+//       </div>
+//     </section>
+//   )
+// }
 function MentorSection() {
   return (
     <section className="mentor-section">
