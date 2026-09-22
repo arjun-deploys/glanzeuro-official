@@ -13,7 +13,7 @@ import {
   ArrowLeft,
   ArrowRight,
   ArrowUpRight,
-  Check,
+  // Check,
   Menu,
   Plus,
   X,
