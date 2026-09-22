@@ -1005,99 +1005,99 @@ function Testimonials() {
   )
 }
 
-function GuidanceForm() {
-  const [answers, setAnswers] = useState({ language: "", level: "", goal: "" })
-  const steps = [
-    ["language", "Which language do you want to learn?", ["French", "Dutch"]],
-    [
-      "level",
-      "What is your current level?",
-      ["Beginner", "A1", "A2", "B1", "B2", "Not Sure"],
-    ],
-    [
-      "goal",
-      "What is your goal?",
-      ["Study", "Career", "Relocation", "Travel", "Personal"],
-    ],
-  ] as const
-  return (
-    <section className="guidance-section section-pink" id="guidance">
-      <div className="guidance-grid container">
-        <div className="guidance-intro">
-          <SectionLabel number="09">The language match</SectionLabel>
-          <h2>
-            Not Sure Which
-            <br />
-            Course or Level
-            <br />
-            <em>Is Right for You?</em>
-          </h2>
-          <p>
-            Don’t worry. Start with three small choices and we’ll point you in
-            the right direction.
-          </p>
-          <a
-            className="guidance-phone"
-            href={whatsappHref}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <span>Call / WhatsApp</span>
-            {/* <strong>{phone}</strong> */}
-          </a>
-        </div>
-        <div className="guidance-panel">
-          <div className="progress-line">
-            <span
-              style={{
-                width: `${(Object.values(answers).filter(Boolean).length / 3) * 100}%`,
-              }}
-            />
-          </div>
-          {steps.map(([key, label, options], index) => (
-            <fieldset key={key} className="guidance-step">
-              <legend>
-                <span>0{index + 1}</span>
-                {label}
-              </legend>
-              <div className="option-grid">
-                {options.map((option) => (
-                  <label
-                    key={option}
-                    className={`option ${answers[key] === option ? "option--selected" : ""}`}
-                  >
-                    <input
-                      type="radio"
-                      name={key}
-                      value={option}
-                      checked={answers[key] === option}
-                      onChange={() =>
-                        setAnswers((current) => ({ ...current, [key]: option }))
-                      }
-                    />
-                    <span>
-                      {answers[key] === option && <Check size={15} />}
-                      {option}
-                    </span>
-                  </label>
-                ))}
-              </div>
-            </fieldset>
-          ))}
-          <button
-            className="submit-button"
-            type="button"
-            onClick={() =>
-              window.open(whatsappHref, "_blank", "noopener,noreferrer")
-            }
-          >
-            Get Course Guidance <ArrowUpRight size={18} />
-          </button>
-        </div>
-      </div>
-    </section>
-  )
-}
+// function GuidanceForm() {
+//   const [answers, setAnswers] = useState({ language: "", level: "", goal: "" })
+//   const steps = [
+//     ["language", "Which language do you want to learn?", ["French", "Dutch"]],
+//     [
+//       "level",
+//       "What is your current level?",
+//       ["Beginner", "A1", "A2", "B1", "B2", "Not Sure"],
+//     ],
+//     [
+//       "goal",
+//       "What is your goal?",
+//       ["Study", "Career", "Relocation", "Travel", "Personal"],
+//     ],
+//   ] as const
+//   return (
+//     <section className="guidance-section section-pink" id="guidance">
+//       <div className="guidance-grid container">
+//         <div className="guidance-intro">
+//           <SectionLabel number="09">The language match</SectionLabel>
+//           <h2>
+//             Not Sure Which
+//             <br />
+//             Course or Level
+//             <br />
+//             <em>Is Right for You?</em>
+//           </h2>
+//           <p>
+//             Don’t worry. Start with three small choices and we’ll point you in
+//             the right direction.
+//           </p>
+//           <a
+//             className="guidance-phone"
+//             href={whatsappHref}
+//             target="_blank"
+//             rel="noreferrer"
+//           >
+//             <span>Call / WhatsApp</span>
+//             {/* <strong>{phone}</strong> */}
+//           </a>
+//         </div>
+//         <div className="guidance-panel">
+//           <div className="progress-line">
+//             <span
+//               style={{
+//                 width: `${(Object.values(answers).filter(Boolean).length / 3) * 100}%`,
+//               }}
+//             />
+//           </div>
+//           {steps.map(([key, label, options], index) => (
+//             <fieldset key={key} className="guidance-step">
+//               <legend>
+//                 <span>0{index + 1}</span>
+//                 {label}
+//               </legend>
+//               <div className="option-grid">
+//                 {options.map((option) => (
+//                   <label
+//                     key={option}
+//                     className={`option ${answers[key] === option ? "option--selected" : ""}`}
+//                   >
+//                     <input
+//                       type="radio"
+//                       name={key}
+//                       value={option}
+//                       checked={answers[key] === option}
+//                       onChange={() =>
+//                         setAnswers((current) => ({ ...current, [key]: option }))
+//                       }
+//                     />
+//                     <span>
+//                       {answers[key] === option && <Check size={15} />}
+//                       {option}
+//                     </span>
+//                   </label>
+//                 ))}
+//               </div>
+//             </fieldset>
+//           ))}
+//           <button
+//             className="submit-button"
+//             type="button"
+//             onClick={() =>
+//               window.open(whatsappHref, "_blank", "noopener,noreferrer")
+//             }
+//           >
+//             Get Course Guidance <ArrowUpRight size={18} />
+//           </button>
+//         </div>
+//       </div>
+//     </section>
+//   )
+// }
 
 function Home() {
   useEffect(() => {
