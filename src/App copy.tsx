@@ -18,17 +18,6 @@ import {
   Plus,
   X,
 } from "lucide-react"
-
-import {
-  CheckCircle2,
-  MessageCircle,
-  Ear,
-  BookOpen,
-  PenLine,
-  GraduationCap,
-  Users2,
-  Sparkles,
-} from "lucide-react"
 import {
   frenchLevels,
   getCourse,
@@ -111,34 +100,6 @@ function SectionLabel({
   )
 }
 
-function SectionLink({
-  id,
-  children,
-}: {
-  id: string
-  children: React.ReactNode
-}) {
-  const [, navigate] = useLocation()
-
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault()
-
-    if (window.location.pathname === "/") {
-      document.getElementById(id)?.scrollIntoView({
-        behavior: "smooth",
-      })
-    } else {
-      navigate(`/#${id}`)
-    }
-  }
-
-  return (
-    <a href={`/#${id}`} onClick={handleClick}>
-      {children}
-    </a>
-  )
-}
-
 function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
@@ -169,6 +130,24 @@ function Header() {
         <div className="header-logo">
           <BrandLogo compact={scrolled} />
         </div>
+        {/* <nav className="desktop-nav" aria-label="Primary navigation">
+          {[
+            ["Home", "/"],
+            ["About", "/about"],
+            ["Courses", "/french"],
+            ["Our Approach", "/#approach"],
+            ["Testimonials", "/#testimonials"],
+            ["Contact", "/contact"],
+          ].map(([label, href]) => (
+            <Link
+              key={label}
+              href={href}
+              className={location === href ? "active" : ""}
+            >
+              {label}
+            </Link>
+          ))}
+        </nav> */}
 
         <nav className="desktop-nav" aria-label="Primary navigation">
           <Link href="/" className={location === "/" ? "active" : ""}>
@@ -203,8 +182,8 @@ function Header() {
               </Link>
             </div>
           </div>
-          <SectionLink id="approach">Our Approach</SectionLink>
-          <SectionLink id="testimonials">Testimonials</SectionLink>
+          <a href="#approach">Our Approach</a>
+          <a href="#testimonials">Testimonials</a>
           <Link href="/contact">Contact</Link>
         </nav>
         <a
@@ -312,27 +291,8 @@ function PageFrame({ children }: { children: React.ReactNode }) {
   return (
     <div className="app-shell">
       <Header />
-
       {children}
-
       <Footer />
-
-      <a
-        href={whatsappHref}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Chat on WhatsApp"
-        className="fixed right-6 bottom-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl"
-      >
-        <svg
-          viewBox="0 0 24 24"
-          fill="currentColor"
-          className="h-8 w-8"
-          aria-hidden="true"
-        >
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.372-.025-.521-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.372-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479s1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.262.489 1.694.626.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982 1-3.648-.235-.374a9.87 9.87 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.029 6.986 2.894a9.825 9.825 0 012.893 6.994c-.002 5.45-4.437 9.887-9.885 9.887m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.479-8.413" />
-        </svg>
-      </a>
     </div>
   )
 }
@@ -639,9 +599,9 @@ function AboutPreview() {
           <p>
             Glanzeuro Lingo is a language training institute focused on
             structured, practical and learner-centred French and Dutch language
-            education. We help learners build communication skills through
-            speaking, listening, reading and writing, with training designed for
-            real-world use.
+            education. We help learners build confidence in real-life
+            communication and prepare for academic, career and global
+            opportunities.
           </p>
           <ArrowButton href="/about">Know more about us</ArrowButton>
         </div>
@@ -949,11 +909,12 @@ function MentorSection() {
           </div>
           <div>
             <p>
-              Praveena Naresh is the Founder and Language Mentor at Glanzeuro
-              Lingo, specialising in structured French and Dutch language
-              training. Her approach combines language fundamentals, practical
-              communication, speaking practice and continuous assessment to help
-              learners progress with confidence.
+              Praveena Naresh is the founder and language mentor at Glanzeuro
+              Lingo, with a focus on providing structured and learner-friendly
+              French and Dutch language training.Her approach focuses on helping
+              students build their language skills step-by-step, with particular
+              attention to speaking confidence, practical communication and
+              strong language fundamentals.
             </p>
             <span className="about-signature">Learn • Speak • Succeed.</span>
           </div>
@@ -1235,19 +1196,6 @@ function HubPage({ language }: { language: "french" | "dutch" }) {
   )
 }
 
-// Maps each section title to a fitting icon. Falls back to CheckCircle2 for anything unmatched.
-function getSectionIcon(title: string) {
-  const key = title.toLowerCase()
-  if (key.includes("speak")) return MessageCircle
-  if (key.includes("listen")) return Ear
-  if (key.includes("read")) return BookOpen
-  if (key.includes("writ")) return PenLine
-  if (key.includes("grammar") || key.includes("vocab")) return GraduationCap
-  if (key.includes("practical") || key.includes("communication")) return Users2
-  if (key.includes("additional") || key.includes("preparation")) return Sparkles
-  return CheckCircle2
-}
-
 function CoursePage({
   language,
   level,
@@ -1257,7 +1205,7 @@ function CoursePage({
 }) {
   const course = getCourse(language, level)
   if (!course) return <NotFound />
-  const [open, setOpen] = useState(course.sections[0]?.title)
+  const [open, setOpen] = useState(course.sections[0])
   return (
     <PageFrame>
       <main
@@ -1283,7 +1231,10 @@ function CoursePage({
                 {language} / level {course.level}
               </SectionLabel>
               <h1>{course.title}</h1>
-              <p>{course.special ?? course.intro}</p>
+              <p>
+                {course.special ??
+                  "A structured path through practical language learning."}
+              </p>
               <div className="course-cta-row">
                 <ArrowButton href="#course-sections">
                   View Course Details
@@ -1324,46 +1275,34 @@ function CoursePage({
                 <h2>
                   {course.level} / {course.descriptor}
                 </h2>
-                <p>{course.intro}</p>
+                <p>
+                  Use the sections below to move through the course pathway. The
+                  supplied blueprint specifies the complete section architecture
+                  for this level.
+                </p>
               </div>
-              {course.sections.map((section, index) => {
-                const Icon = getSectionIcon(section.title)
-                return (
-                  <div
-                    className={`course-section ${open === section.title ? "course-section--open" : ""}`}
-                    key={`${section.title}-${index}`}
+              {course.sections.map((section, index) => (
+                <div
+                  className={`course-section ${open === section ? "course-section--open" : ""}`}
+                  key={`${section}-${index}`}
+                >
+                  <button
+                    onClick={() => setOpen(open === section ? "" : section)}
+                    aria-expanded={open === section}
                   >
-                    <button
-                      onClick={() =>
-                        setOpen(open === section.title ? "" : section.title)
-                      }
-                      aria-expanded={open === section.title}
-                    >
-                      <span>{String(index + 1).padStart(2, "0")}</span>
-                      <strong>{section.title}</strong>
-                      <Plus size={21} />
-                    </button>
-                    <div className="course-section__body">
-                      <ul className="flex flex-col gap-3 pt-2 pb-8 pl-4 md:pl-16">
-                        {section.bullets.map((bullet, bIndex) => (
-                          <li
-                            key={bIndex}
-                            className="flex items-start gap-3 text-sm leading-relaxed text-neutral-700"
-                          >
-                            <Icon
-                              size={16}
-                              className="mt-0.5 shrink-0 text-[var(--brand-pink)]"
-                            />
-                            <span className="text-base font-medium">
-                              {bullet}
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                    <span>{String(index + 1).padStart(2, "0")}</span>
+                    <strong>{section}</strong>
+                    <Plus size={21} />
+                  </button>
+                  <div className="course-section__body">
+                    <p>
+                      {course.special && section === "Additional Preparation"
+                        ? course.special
+                        : `Detailed ${section.toLowerCase()} copy supplied by Glanzeuro Lingo will appear here. The provided blueprint names this section but does not include its underlying bullet text.`}
+                    </p>
                   </div>
-                )
-              })}
+                </div>
+              ))}
               <div className="course-footer-cta">
                 <p>Ready to find your next step?</p>
                 <ArrowButton href="/contact">Enquire now</ArrowButton>
@@ -1406,14 +1345,7 @@ function About() {
                 helping learners develop practical and confident communication
                 skills in French and Dutch.
               </p>
-              <h4 className="mt-6 text-lg leading-relaxed text-neutral-700">
-                We offer online language training designed for learners at
-                different levels, with interactive and structured classes that
-                help learners use the language in real-life situations. Our
-                training can support learners pursuing education, career
-                opportunities, travel, relocation, personal development or
-                communication goals.
-              </h4>
+              <div className="about-stamp">GL / 2026</div>
             </div>
           </div>
           <div className="about-photo">
@@ -1441,11 +1373,12 @@ function About() {
             </div>
             <div>
               <p>
-                Praveena Naresh is the Founder and Language Mentor at Glanzeuro
-                Lingo, specialising in structured French and Dutch language
-                training. Her approach combines language fundamentals, practical
-                communication, speaking practice and continuous assessment to
-                help learners progress with confidence.
+                Praveena Naresh is the founder and language mentor at Glanzeuro
+                Lingo, with a focus on providing structured and learner-friendly
+                French and Dutch language training.Her approach focuses on
+                helping students build their language skills step-by-step, with
+                particular attention to speaking confidence, practical
+                communication and strong language fundamentals.
               </p>
               <span className="about-signature">Learn • Speak • Succeed.</span>
             </div>

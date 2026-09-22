@@ -1674,7 +1674,7 @@ img {
   color: var(--brand-pink);
 }
 .course-hero h1 {
-  font: 400 clamp(4.2rem, 8vw, 8.5rem) / 0.87 var(--display);
+  font: 400 clamp(4.2rem, 8vw, 5.5rem) / 0.87 var(--display);
   letter-spacing: -0.07em;
   margin: 35px 0 28px;
   max-width: 780px;

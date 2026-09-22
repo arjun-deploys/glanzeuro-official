@@ -1,3 +1,5 @@
+import { courses } from "@/data/courses"
+
 export type Language = "french" | "dutch"
 
 export type Course = {
@@ -130,39 +132,39 @@ const commonSections = [
   "Certificate",
 ]
 
-export const courses: Course[] = [
-  ...frenchLevels.map((item) => ({
-    language: "french" as const,
-    level: item.level as Course["level"],
-    title: item.copy,
-    descriptor: item.name,
-    href: item.href,
-    sections: [
-      ...commonSections.slice(0, 5),
-      ...(item.level === "B1" || item.level === "B2"
-        ? ["Practical Communication"]
-        : []),
-      ...commonSections.slice(5),
-    ],
-  })),
-  ...dutchLevels.map((item) => ({
-    language: "dutch" as const,
-    level: item.level as Course["level"],
-    title: item.copy,
-    descriptor: item.name,
-    href: item.href,
-    sections: [
-      ...commonSections.slice(0, 5),
-      ...(item.level !== "A1" ? ["Practical Communication"] : []),
-      ...(item.level === "A2" ? ["Additional Preparation"] : []),
-      ...commonSections.slice(5),
-    ],
-    special:
-      item.level === "A2"
-        ? "Dutch A2 Inburgering Exam Preparation, where applicable."
-        : undefined,
-  })),
-]
+// export const courses: Course[] = [
+//   ...frenchLevels.map((item) => ({
+//     language: "french" as const,
+//     level: item.level as Course["level"],
+//     title: item.copy,
+//     descriptor: item.name,
+//     href: item.href,
+//     sections: [
+//       ...commonSections.slice(0, 5),
+//       ...(item.level === "B1" || item.level === "B2"
+//         ? ["Practical Communication"]
+//         : []),
+//       ...commonSections.slice(5),
+//     ],
+//   })),
+//   ...dutchLevels.map((item) => ({
+//     language: "dutch" as const,
+//     level: item.level as Course["level"],
+//     title: item.copy,
+//     descriptor: item.name,
+//     href: item.href,
+//     sections: [
+//       ...commonSections.slice(0, 5),
+//       ...(item.level !== "A1" ? ["Practical Communication"] : []),
+//       ...(item.level === "A2" ? ["Additional Preparation"] : []),
+//       ...commonSections.slice(5),
+//     ],
+//     special:
+//       item.level === "A2"
+//         ? "Dutch A2 Inburgering Exam Preparation, where applicable."
+//         : undefined,
+//   })),
+// ]
 
 export const getCourse = (language: Language, level: string) =>
   courses.find(
