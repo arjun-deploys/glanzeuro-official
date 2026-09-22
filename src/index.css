@@ -718,7 +718,7 @@ img {
   border-top: 1px solid var(--line);
   position: relative;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
   gap: 1rem;
 }
 .track-list:before {
