@@ -1,6 +1,13 @@
 import { useEffect, useState } from "react"
 import { Link, Route, Switch, useLocation } from "wouter"
-import { Video, Mic, LayoutGrid, ClipboardCheck, Globe } from "lucide-react"
+import {
+  Video,
+  Mic,
+  LayoutGrid,
+  ClipboardCheck,
+  Globe,
+  ChevronDown,
+} from "lucide-react"
 import {
   ArrowDownRight,
   ArrowLeft,
@@ -93,97 +100,6 @@ function SectionLabel({
   )
 }
 
-// function Header() {
-//   const [scrolled, setScrolled] = useState(false)
-//   const [menuOpen, setMenuOpen] = useState(false)
-//   const [location] = useLocation()
-
-//   useEffect(() => {
-//     const onScroll = () => setScrolled(window.scrollY > 20)
-//     onScroll()
-//     window.addEventListener("scroll", onScroll, { passive: true })
-//     return () => window.removeEventListener("scroll", onScroll)
-//   }, [])
-
-//   useEffect(() => setMenuOpen(false), [location])
-
-//   return (
-//     <>
-//       <header
-//         className={`site-header ${scrolled ? "site-header--scrolled" : ""}`}
-//       >
-//         <button
-//           className="menu-trigger"
-//           onClick={() => setMenuOpen(true)}
-//           aria-label="Open navigation"
-//         >
-//           <Menu size={20} />
-//           <span>Menu</span>
-//         </button>
-//         <div className="header-logo">
-//           <BrandLogo compact={scrolled} />
-//         </div>
-//         {/* <a className="header-enquire" href="/contact">
-//           Enquire now <ArrowUpRight size={16} />
-//         </a> */}
-//         <div className="inline-flex justify-end">
-//           <ArrowButton href="/about" dark>
-//             Enquire now
-//           </ArrowButton>
-//         </div>
-//       </header>
-//       <div
-//         className={`mobile-menu ${menuOpen ? "mobile-menu--open" : ""}`}
-//         aria-hidden={!menuOpen}
-//       >
-//         <div className="menu-drawer__visual">
-//           <div className="menu-drawer__vertical">
-//             GLANZEURO LINGO / ONLINE LANGUAGE TRAINING
-//           </div>
-//           <div className="menu-drawer__word">
-//             <img src={logo} alt="Glanzeuro Lingo logo" className="w-140!" />
-//           </div>
-//           <span className="menu-drawer__caption">Learn • Speak • Succeed.</span>
-//         </div>
-//         <div className="menu-drawer__content">
-//           <div className="mobile-menu__top">
-//             <span className="menu-kicker text-black!">Menu / Explore</span>
-//             <button
-//               onClick={() => setMenuOpen(false)}
-//               aria-label="Close navigation"
-//             >
-//               <X size={26} />
-//             </button>
-//           </div>
-//           <nav className="mobile-menu__nav">
-//             {navItems.map(([label, href], index) => (
-//               <Link key={href} href={href} className="mobile-menu__link">
-//                 <span>0{index + 1}</span>
-//                 {label}
-//                 <ArrowUpRight size={18} />
-//               </Link>
-//             ))}
-//           </nav>
-//           <div className="mobile-menu__footer">
-//             <div>
-//               <span>Call / WhatsApp</span>
-//               <a href={`tel:${phone}`} className="text-black!">
-//                 {phone}
-//               </a>
-//             </div>
-//             <ArrowButton href="/about" dark>
-//               Enquire now
-//             </ArrowButton>
-//             {/* <Link href="/contact" className="menu-drawer__cta">
-//               Enquire now <ArrowUpRight size={16} />
-//             </Link> */}
-//           </div>
-//         </div>
-//       </div>
-//     </>
-//   )
-// }
-
 function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
@@ -214,7 +130,7 @@ function Header() {
         <div className="header-logo">
           <BrandLogo compact={scrolled} />
         </div>
-        <nav className="desktop-nav" aria-label="Primary navigation">
+        {/* <nav className="desktop-nav" aria-label="Primary navigation">
           {[
             ["Home", "/"],
             ["About", "/about"],
@@ -231,9 +147,52 @@ function Header() {
               {label}
             </Link>
           ))}
+        </nav> */}
+
+        <nav className="desktop-nav" aria-label="Primary navigation">
+          <Link href="/" className={location === "/" ? "active" : ""}>
+            Home
+          </Link>
+          <Link href="/about" className={location === "/about" ? "active" : ""}>
+            About
+          </Link>
+          <div className="nav-dropdown">
+            <button
+              type="button"
+              className={`flex items-center gap-2 text-[14px]! ${
+                location.startsWith("/french") || location.startsWith("/dutch")
+                  ? "active"
+                  : ""
+              }`}
+              aria-haspopup="true"
+            >
+              Courses{" "}
+              <ChevronDown size={18} className="text-[var(--brand-pink)]" />
+            </button>
+            <div className="nav-dropdown__panel">
+              <Link href="/french">
+                <strong>French</strong>
+                <small>A1 — B2 training</small>
+                <ArrowUpRight size={15} />
+              </Link>
+              <Link href="/dutch">
+                <strong>Dutch</strong>
+                <small>A1 — B2 training</small>
+                <ArrowUpRight size={15} />
+              </Link>
+            </div>
+          </div>
+          <a href="#approach">Our Approach</a>
+          <a href="#testimonials">Testimonials</a>
+          <Link href="/contact">Contact</Link>
         </nav>
-        <a className="header-enquire" href="/contact">
-          Enquire now <ArrowUpRight size={16} />
+        <a
+          className="header-enquire"
+          href="https://docs.google.com/forms/d/e/1FAIpQLSdSA9UDQjixjpAWvddNkj-kZt3c8e1SfkQlEvHLgcbj8yIg0g/viewform?usp=header"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Enroll now <ArrowUpRight size={16} />
         </a>
       </header>
       <div
@@ -272,12 +231,19 @@ function Header() {
           </nav>
           <div className="mobile-menu__footer">
             <div>
-              <span>Call / WhatsApp</span>
-              <a href={`tel:${phone}`}>{phone}</a>
+              <a href={`tel:${phone}`}>
+                {" "}
+                <span>Call / WhatsApp</span>
+              </a>
             </div>
-            <Link href="/contact" className="menu-drawer__cta">
+            <a
+              href="https://docs.google.com/forms/d/e/1FAIpQLSdSA9UDQjixjpAWvddNkj-kZt3c8e1SfkQlEvHLgcbj8yIg0g/viewform?usp=header"
+              target="_blank"
+              rel="noreferrer"
+              className="menu-drawer__cta"
+            >
               Enquire now <ArrowUpRight size={16} />
-            </Link>
+            </a>
           </div>
         </div>
       </div>
@@ -309,7 +275,7 @@ function Footer() {
           rel="noreferrer"
         >
           <span>Call / WhatsApp</span>
-          <strong>{phone}</strong>
+          {/* <strong>{phone}</strong> */}
           <ArrowUpRight size={18} />
         </a>
       </div>
@@ -840,8 +806,8 @@ function LanguageSection({ language }: { language: "french" | "dutch" }) {
           </p>
           <p>
             {french
-              ? "French levels: A1, A2, B1 and B2."
-              : "Dutch levels for this website update: A1, A2, B1 and B2. Please display all four levels as requested."}
+              ? "Whether you're a complete beginner or already have French knowledge, Glanzeuro Lingo offers structured online French training from A1 to B2."
+              : "Glanzeuro Lingo offers online Dutch training from A1 to B2, with an emphasis on strong fundamentals and practical communication. "}
           </p>
           <LevelRail
             language={language}
@@ -858,7 +824,7 @@ function LanguageSection({ language }: { language: "french" | "dutch" }) {
 
 function Manifesto() {
   return (
-    <section className="manifesto-section">
+    <section className="manifesto-section" id="approach">
       <div className="container">
         <SectionLabel light number="05">
           The Glanzeuro method
@@ -943,9 +909,12 @@ function MentorSection() {
           </div>
           <div>
             <p>
-              Mentor details supplied by Glanzeuro Lingo will appear here. The
-              provided blueprint includes the founder’s name and role, but does
-              not include the longer biography text to reproduce.
+              Praveena Naresh is the founder and language mentor at Glanzeuro
+              Lingo, with a focus on providing structured and learner-friendly
+              French and Dutch language training.Her approach focuses on helping
+              students build their language skills step-by-step, with particular
+              attention to speaking confidence, practical communication and
+              strong language fundamentals.
             </p>
             <span className="about-signature">Learn • Speak • Succeed.</span>
           </div>
@@ -963,7 +932,7 @@ function Testimonials() {
       (index) => (index + direction + testimonials.length) % testimonials.length
     )
   return (
-    <section className="quotes-section section-white">
+    <section className="quotes-section section-white" id="testimonials">
       <div className="container">
         <div className="section-intro section-intro--split">
           <div>
@@ -1008,7 +977,7 @@ function Testimonials() {
           <div className="quote-slide" key={active}>
             <span className="quote-mark">“</span>
             <blockquote>{current.quote}</blockquote>
-            <figcaption>
+            <figcaption className="pt-4">
               <strong>{current.name}</strong>
               <span>{current.course}</span>
             </figcaption>
@@ -1074,7 +1043,7 @@ function GuidanceForm() {
             rel="noreferrer"
           >
             <span>Call / WhatsApp</span>
-            <strong>{phone}</strong>
+            {/* <strong>{phone}</strong> */}
           </a>
         </div>
         <div className="guidance-panel">
@@ -1179,8 +1148,8 @@ function HubPage({ language }: { language: "french" | "dutch" }) {
               </h1>
               <p>
                 {french
-                  ? "French levels: A1, A2, B1 and B2."
-                  : "Dutch levels for this website update: A1, A2, B1 and B2. Please display all four levels as requested."}
+                  ? "Whether you're a complete beginner or already have French knowledge, Glanzeuro Lingo offers structured online French training from A1 to B2."
+                  : "Glanzeuro Lingo offers online Dutch training from A1 to B2, with an emphasis on strong fundamentals and practical communication. "}
               </p>
             </div>
             <div className="hub-hero__image">
@@ -1270,8 +1239,13 @@ function CoursePage({
                 <ArrowButton href="#course-sections">
                   View Course Details
                 </ArrowButton>
-                <a className="text-link" href="/contact">
-                  Enquire now <ArrowUpRight size={16} />
+                <a
+                  className="text-link"
+                  href="https://docs.google.com/forms/d/e/1FAIpQLSdSA9UDQjixjpAWvddNkj-kZt3c8e1SfkQlEvHLgcbj8yIg0g/viewform?usp=header"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Enroll now <ArrowUpRight size={16} />
                 </a>
               </div>
             </div>
@@ -1399,9 +1373,12 @@ function About() {
             </div>
             <div>
               <p>
-                Mentor details supplied by Glanzeuro Lingo will appear here. The
-                provided blueprint includes the founder’s name and role, but
-                does not include the longer biography text to reproduce.
+                Praveena Naresh is the founder and language mentor at Glanzeuro
+                Lingo, with a focus on providing structured and learner-friendly
+                French and Dutch language training.Her approach focuses on
+                helping students build their language skills step-by-step, with
+                particular attention to speaking confidence, practical
+                communication and strong language fundamentals.
               </p>
               <span className="about-signature">Learn • Speak • Succeed.</span>
             </div>
@@ -1412,9 +1389,9 @@ function About() {
             <SectionLabel number="03">The vision</SectionLabel>
             <h2>Vision</h2>
             <p>
-              Vision copy supplied by Glanzeuro Lingo will appear here. The
-              provided blueprint specifies a vision section but does not include
-              its source paragraph.
+              To become a trusted language-learning institute that empowers
+              learners to communicate confidently in French and Dutch and opens
+              doors to global education, career and personal opportunities.
             </p>
           </div>
         </section>
@@ -1423,20 +1400,18 @@ function About() {
             <SectionLabel number="04">The mission</SectionLabel>
             <div className="mission-heading">
               <h2>Mission</h2>
-              <p>
-                The mission points supplied by Glanzeuro Lingo will appear here.
-                The provided blueprint specifies five points but does not
-                include their source text.
-              </p>
             </div>
             <div className="mission-list">
-              {["01", "02", "03", "04", "05"].map((number) => (
-                <div key={number}>
-                  <span>{number}</span>
-                  <p>
-                    Mission point {number} — source copy pending from Glanzeuro
-                    Lingo.
-                  </p>
+              {[
+                "To provide structured and interactive French and Dutch language training.",
+                "To develop learners' speaking, listening, reading and writing skills.",
+                "To make online language learning accessible, practical and engaging.",
+                "To help learners build confidence through regular practice and communication.",
+                "To support learners in achieving their personal, academic and professional language goals.",
+              ].map((number, index) => (
+                <div key={index}>
+                  <span>0{index + 1}</span>
+                  <p>{number}</p>
                 </div>
               ))}
             </div>
@@ -1444,6 +1419,114 @@ function About() {
         </section>
       </main>
     </PageFrame>
+  )
+}
+
+function EnquiryForm() {
+  const [submitted, setSubmitted] = useState(false)
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    interest: "French",
+    message: "",
+  })
+  const update = (key: keyof typeof form, value: string) =>
+    setForm((current) => ({ ...current, [key]: value }))
+  const submit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const text = `General enquiry from ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nInterest: ${form.interest}\nMessage: ${form.message}`
+    setSubmitted(true)
+    window.open(
+      `${whatsappHref}?text=${encodeURIComponent(text)}`,
+      "_blank",
+      "noopener,noreferrer"
+    )
+  }
+  return (
+    <section className="enquiry-section">
+      <div className="enquiry-grid container">
+        <div className="enquiry-intro">
+          <SectionLabel number="02">General enquiry</SectionLabel>
+          <h2>
+            Let’s start
+            <br />
+            <em>a conversation.</em>
+          </h2>
+          <p>
+            Tell us a little about what you want to learn. We’ll help you find
+            the right language, level and next step.
+          </p>
+          <a className="enquiry-contact" href={`tel:${phone}`}>
+            <span>Prefer to talk?</span>
+            <strong>{phone}</strong>
+          </a>
+        </div>
+        <form className="enquiry-form" onSubmit={submit}>
+          <div className="enquiry-form__row">
+            <label>
+              Full name
+              <input
+                required
+                value={form.name}
+                onChange={(event) => update("name", event.target.value)}
+                placeholder="Your name"
+              />
+            </label>
+            <label>
+              Email address
+              <input
+                required
+                type="email"
+                value={form.email}
+                onChange={(event) => update("email", event.target.value)}
+                placeholder="you@example.com"
+              />
+            </label>
+          </div>
+          <div className="enquiry-form__row">
+            <label>
+              Phone / WhatsApp
+              <input
+                required
+                value={form.phone}
+                onChange={(event) => update("phone", event.target.value)}
+                placeholder="Your number"
+              />
+            </label>
+            <label>
+              Interested in
+              <select
+                value={form.interest}
+                onChange={(event) => update("interest", event.target.value)}
+              >
+                <option>French</option>
+                <option>Dutch</option>
+                <option>Not sure yet</option>
+                <option>General information</option>
+              </select>
+            </label>
+          </div>
+          <label>
+            How can we help?
+            <textarea
+              required
+              rows={5}
+              value={form.message}
+              onChange={(event) => update("message", event.target.value)}
+              placeholder="Tell us about your goals, preferred timing or any questions..."
+            />
+          </label>
+          <button className="submit-button" type="submit">
+            {submitted ? "Opening WhatsApp..." : "Send enquiry"}
+            <ArrowUpRight size={18} />
+          </button>
+          <small>
+            Your enquiry opens in WhatsApp so our team can reply directly.
+          </small>
+        </form>
+      </div>
+    </section>
   )
 }
 
@@ -1462,7 +1545,8 @@ function Contact() {
             <p>Not sure which course or level is right for you?</p>
           </div>
         </section>
-        <GuidanceForm />
+        <EnquiryForm />
+        {/* <GuidanceForm /> */}
       </main>
     </PageFrame>
   )
