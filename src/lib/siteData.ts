@@ -122,15 +122,15 @@ export const audiences = [
   { title: "Anyone Who Wants to Communicate Better", copy: "" },
 ]
 
-const commonSections = [
-  "Speaking Skills",
-  "Listening Skills",
-  "Reading Skills",
-  "Writing Skills",
-  "Grammar & Vocabulary",
-  "Assessment",
-  "Certificate",
-]
+// const commonSections = [
+//   "Speaking Skills",
+//   "Listening Skills",
+//   "Reading Skills",
+//   "Writing Skills",
+//   "Grammar & Vocabulary",
+//   "Assessment",
+//   "Certificate",
+// ]
 
 // export const courses: Course[] = [
 //   ...frenchLevels.map((item) => ({
