@@ -7,6 +7,7 @@ import {
   ClipboardCheck,
   Globe,
   ChevronDown,
+  Phone,
 } from "lucide-react"
 import {
   ArrowDownRight,
@@ -98,14 +99,16 @@ function SectionLabel({
   number,
   children,
   light = false,
+  numberLight = false,
 }: {
   number?: string
   children: React.ReactNode
   light?: boolean
+  numberLight?: boolean
 }) {
   return (
     <div className={`section-label ${light ? "section-label--light" : ""}`}>
-      <span>{number ?? "✦"}</span>
+      <span className={`${numberLight && "text-white!"}`}>{number}</span>
       <span>{children}</span>
     </div>
   )
@@ -207,6 +210,16 @@ function Header() {
           <SectionLink id="testimonials">Testimonials</SectionLink>
           <Link href="/contact">Contact</Link>
         </nav>
+
+        {/* <a
+          className="header-enquire"
+          href="https://docs.google.com/forms/d/e/1FAIpQLSdSA9UDQjixjpAWvddNkj-kZt3c8e1SfkQlEvHLgcbj8yIg0g/viewform?usp=header"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Enroll now <ArrowUpRight size={16} />
+        </a> */}
+
         <a
           className="header-enquire"
           href="https://docs.google.com/forms/d/e/1FAIpQLSdSA9UDQjixjpAWvddNkj-kZt3c8e1SfkQlEvHLgcbj8yIg0g/viewform?usp=header"
@@ -214,6 +227,10 @@ function Header() {
           rel="noopener noreferrer"
         >
           Enroll now <ArrowUpRight size={16} />
+        </a>
+
+        <a className="header-enquire" href={`tel:+91${phone}`}>
+          Call <Phone size={16} />
         </a>
       </header>
       <div
@@ -263,7 +280,7 @@ function Header() {
               rel="noreferrer"
               className="menu-drawer__cta"
             >
-              Enquire now <ArrowUpRight size={16} />
+              Enroll now <ArrowUpRight size={16} />
             </a>
           </div>
         </div>
@@ -276,7 +293,7 @@ function Footer() {
   return (
     <footer className="site-footer">
       <div className="footer-top container">
-        <SectionLabel light>Glanzeuro Lingo</SectionLabel>
+        {/* <SectionLabel light>Glanzeuro Lingo</SectionLabel> */}
         <div className="footer-mark">
           <img src={logo} alt="Glanzeuro Lingo logo" className="w-160!" />
         </div>
@@ -681,7 +698,7 @@ function ReferenceTestimonials() {
     <section className="reference-testimonials" id="testimonials">
       <div className="reference-testimonials__grid container">
         <div>
-          <SectionLabel number="03">Learner voices</SectionLabel>
+          <SectionLabel number="08">Learner voices</SectionLabel>
           <h2>
             What Our
             <br />
@@ -730,7 +747,7 @@ function LearningTrack() {
       <div className="container">
         <div className="section-intro section-intro--split">
           <div>
-            <SectionLabel number="02">The learning journey</SectionLabel>
+            <SectionLabel number="03">The learning journey</SectionLabel>
             <h2>
               Your Language
               <br />
@@ -835,7 +852,7 @@ function LanguageSection({ language }: { language: "french" | "dutch" }) {
           </span>
         </div>
         <div className="language-copy">
-          <SectionLabel number={french ? "03" : "04"}>
+          <SectionLabel number={french ? "04" : "05"}>
             {french ? "The French atlas" : "The Dutch grid"}
           </SectionLabel>
           <h2>{french ? "🇫🇷 Learn French Online" : "🇳🇱 Learn Dutch Online"}</h2>
@@ -866,7 +883,7 @@ function Manifesto() {
   return (
     <section className="manifesto-section" id="approach">
       <div className="container">
-        <SectionLabel light number="05">
+        <SectionLabel light number="06">
           The Glanzeuro method
         </SectionLabel>
         <div className="manifesto-statement">
@@ -935,7 +952,7 @@ function MentorSection() {
       <section className="about-mentor">
         <div className="about-mentor__grid container">
           <div>
-            <SectionLabel number="02">
+            <SectionLabel number="07" numberLight>
               Founder &amp; Language Mentor
             </SectionLabel>
             <h2>
@@ -1424,10 +1441,10 @@ function About() {
             />
           </div>
         </section>
-        <section className="about-mentor">
+        {/* <section className="about-mentor">
           <div className="about-mentor__grid container">
             <div>
-              <SectionLabel number="02">
+              <SectionLabel number="02" numberLight>
                 Founder &amp; Language Mentor
               </SectionLabel>
               <h2>
@@ -1450,10 +1467,12 @@ function About() {
               <span className="about-signature">Learn • Speak • Succeed.</span>
             </div>
           </div>
-        </section>
+        </section> */}
         <section className="vision-section">
           <div className="container">
-            <SectionLabel number="03">The vision</SectionLabel>
+            <SectionLabel number="03" numberLight>
+              The vision
+            </SectionLabel>
             <h2>Vision</h2>
             <p>
               To become a trusted language-learning institute that empowers
@@ -1464,7 +1483,9 @@ function About() {
         </section>
         <section className="mission-section">
           <div className="container">
-            <SectionLabel number="04">The mission</SectionLabel>
+            <SectionLabel number="04" numberLight>
+              The mission
+            </SectionLabel>
             <div className="mission-heading">
               <h2>Mission</h2>
             </div>

@@ -718,7 +718,7 @@ img {
   border-top: 1px solid var(--line);
   position: relative;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(350px, 100%), 1fr));
   gap: 1rem;
 }
 .track-list:before {
@@ -981,7 +981,7 @@ img {
 .principle {
   padding: 23px 20px 23px 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.26);
-  font-size: 12px;
+  font-size: 18px;
   font-weight: 700;
   line-height: 1.4;
 }
@@ -1107,7 +1107,7 @@ img {
 }
 .mentor-watermark {
   position: absolute;
-  right: -5vw;
+  right: 2.5vw;
   top: 60px;
   color: rgba(255, 255, 255, 0.33);
   font: 800 clamp(7rem, 18vw, 18rem) / 0.75 var(--sans);
@@ -1439,7 +1439,7 @@ img {
 .site-footer {
   background: var(--brand-black);
   color: var(--white);
-  padding: 90px 0 28px;
+  padding: 60px 0 28px;
 }
 .footer-top {
   display: flex;

@@ -13,7 +13,10 @@ export type Course = {
 }
 
 export const phone = "9345881643"
-export const whatsappHref = `https://wa.me/91${phone}`
+
+export const whatsappMessage = "Hello, can I get more info on the course?"
+
+export const whatsappHref = `https://wa.me/91${phone}?text=${encodeURIComponent(whatsappMessage)}`
 
 export const whatWeDo = [
   {
