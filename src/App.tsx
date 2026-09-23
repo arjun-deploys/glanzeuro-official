@@ -953,16 +953,16 @@ function MentorSection() {
         <div className="about-mentor__grid container">
           <div>
             <SectionLabel number="07" numberLight>
-              Founder &amp; Language Mentor
+              Founder &amp; Language Mentor — Glanzeuro Lingo
             </SectionLabel>
             <h2>
               Praveena
               <br />
               <em>Naresh</em>
             </h2>
-            <p className="mentor-role">
+            {/* <p className="mentor-role">
               Founder &amp; Language Mentor — Glanzeuro Lingo
-            </p>
+            </p> */}
           </div>
           <div>
             <p>
@@ -1441,20 +1441,20 @@ function About() {
             />
           </div>
         </section>
-        {/* <section className="about-mentor">
+        <section className="about-mentor">
           <div className="about-mentor__grid container">
             <div>
               <SectionLabel number="02" numberLight>
-                Founder &amp; Language Mentor
+                 Founder &amp; Language Mentor — Glanzeuro Lingo
               </SectionLabel>
               <h2>
                 Praveena
                 <br />
                 <em>Naresh</em>
               </h2>
-              <p className="mentor-role">
+              {/* <p className="mentor-role">
                 Founder &amp; Language Mentor — Glanzeuro Lingo
-              </p>
+              </p> */}
             </div>
             <div>
               <p>
@@ -1467,7 +1467,7 @@ function About() {
               <span className="about-signature">Learn • Speak • Succeed.</span>
             </div>
           </div>
-        </section> */}
+        </section>
         <section className="vision-section">
           <div className="container">
             <SectionLabel number="03" numberLight>
