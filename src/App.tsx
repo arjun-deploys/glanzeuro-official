@@ -222,7 +222,7 @@ function Header() {
 
         <a
           className="header-enquire"
-          href="https://docs.google.com/forms/d/e/1FAIpQLSdSA9UDQjixjpAWvddNkj-kZt3c8e1SfkQlEvHLgcbj8yIg0g/viewform?usp=header"
+          href="https://forms.gle/tP1GzgJZM8DoViFw6"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -275,7 +275,7 @@ function Header() {
               </a>
             </div>
             <a
-              href="https://docs.google.com/forms/d/e/1FAIpQLSdSA9UDQjixjpAWvddNkj-kZt3c8e1SfkQlEvHLgcbj8yIg0g/viewform?usp=header"
+              href="https://forms.gle/tP1GzgJZM8DoViFw6"
               target="_blank"
               rel="noreferrer"
               className="menu-drawer__cta"
@@ -1307,7 +1307,7 @@ function CoursePage({
                 </ArrowButton>
                 <a
                   className="text-link"
-                  href="https://docs.google.com/forms/d/e/1FAIpQLSdSA9UDQjixjpAWvddNkj-kZt3c8e1SfkQlEvHLgcbj8yIg0g/viewform?usp=header"
+                  href="https://forms.gle/tP1GzgJZM8DoViFw6"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
