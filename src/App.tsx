@@ -1318,6 +1318,7 @@ function CoursePage({
                         ? "03"
                         : "04"
                 }
+                light={course.level === "B2"}
               >
                 {language} / level {course.level}
               </SectionLabel>
