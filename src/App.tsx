@@ -8,6 +8,9 @@ import {
   Globe,
   ChevronDown,
   Phone,
+  Download,
+  QrCode,
+  Headphones,
 } from "lucide-react"
 import {
   ArrowDownRight,
@@ -53,6 +56,23 @@ const navItems = [
   ["Dutch", "/dutch"],
   ["About", "/about"],
 ] as const
+
+const glafAudioItems = Array.from({ length: 25 }, (_, index) => {
+  const number = index + 1
+
+  return {
+    number: String(number).padStart(2, "0"),
+    title: `GLAF Audio ${number}`,
+    label:
+      index < 10
+        ? "Starter listening"
+        : index < 20
+          ? "Practice session"
+          : "Confidence builder",
+    file: `/audio/GL Fr Audio ${number}.mp3`,
+    qr: `/qr/GLAB ${number}.png`,
+  }
+})
 
 function BrandLogo({
   compact = false,
@@ -305,6 +325,8 @@ function Footer() {
               {label}
             </Link>
           ))}
+
+          <Link href={"/glaf"}>GLAF</Link>
         </div>
         <a
           className="footer-phone"
@@ -1445,7 +1467,7 @@ function About() {
           <div className="about-mentor__grid container">
             <div>
               <SectionLabel number="02" numberLight>
-                 Founder &amp; Language Mentor — Glanzeuro Lingo
+                Founder &amp; Language Mentor — Glanzeuro Lingo
               </SectionLabel>
               <h2>
                 Praveena
@@ -1640,6 +1662,116 @@ function Contact() {
   )
 }
 
+function GlafPage() {
+  return (
+    <PageFrame>
+      <main className="glaf-page">
+        <section className="glaf-hero">
+          <div className="glaf-hero__orb glaf-hero__orb--one" />
+          <div className="glaf-hero__orb glaf-hero__orb--two" />
+          <div className="glaf-hero__grid container">
+            <div>
+              <SectionLabel number="01">
+                Glanzeuro Language Audio Files
+              </SectionLabel>
+              <h1>
+                Listen.
+                <br />
+                <em>Learn.</em>
+                <br />
+                Level up.
+              </h1>
+              <p>
+                GLAF is your pocket library for guided language practice. Scan
+                any QR code to open the audio file on your phone and keep
+                learning wherever you are.
+              </p>
+              <div className="glaf-hero__meta">
+                <span>
+                  <Headphones size={17} />
+                  25 audio tracks
+                </span>
+                <span>
+                  <QrCode size={17} />
+                  Scan to download
+                </span>
+              </div>
+            </div>
+            <div className="glaf-hero__mark">
+              <span>GLAF</span>
+              <small>
+                Glanzeuro
+                <br />
+                Language
+                <br />
+                Audio Files
+              </small>
+            </div>
+          </div>
+        </section>
+        <section className="glaf-library">
+          <div className="container">
+            <div className="glaf-library__heading">
+              <div>
+                <SectionLabel number="02">The audio library</SectionLabel>
+                <h2>
+                  Pick a track.
+                  <br />
+                  <em>Press play.</em>
+                </h2>
+              </div>
+              <p>
+                Each card is ready for your MP3. Add your files to{" "}
+                <code>/glaf/</code> using the matching filename, then the player
+                and QR download will work automatically.
+              </p>
+            </div>
+
+            <div className="glaf-grid">
+              {glafAudioItems.map((item) => (
+                <article className="glaf-card" key={item.number}>
+                  <div className="glaf-card__top">
+                    <span className="glaf-card__number">{item.number}</span>
+                    <span className="glaf-card__label">{item.label}</span>
+                  </div>
+
+                  <div className="glaf-card__title">
+                    <Headphones size={19} />
+                    <h3>{item.title}</h3>
+                  </div>
+
+                  <audio controls preload="none">
+                    <source src={item.file} type="audio/mpeg" />
+                    Your browser does not support audio playback.
+                  </audio>
+
+                  <div className="glaf-card__bottom">
+                    <div className="glaf-qr">
+                      <img src={item.qr} alt={`QR code for ${item.title}`} />
+
+                      <span>
+                        <QrCode size={13} /> Scan to listen
+                      </span>
+                    </div>
+
+                    <a
+                      className="glaf-download"
+                      href={item.qr}
+                      download={`GLAF-Audio-${item.number}-QR.png`}
+                    >
+                      <Download size={15} /> Download QR
+                    </a>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      </main>
+    </PageFrame>
+  )
+}
+
 function NotFound() {
   return (
     <PageFrame>
@@ -1668,7 +1800,7 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/about" component={About} />
       <Route path="/contact" component={Contact} />
-
+      <Route path="/glaf" component={GlafPage} />
       <Route path="/french" component={() => <HubPage language="french" />} />
       <Route path="/dutch" component={() => <HubPage language="dutch" />} />
 
