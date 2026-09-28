@@ -315,7 +315,7 @@ function Header() {
             <div>
               <a href={`tel:${phone}`}>
                 {" "}
-                <span>Call / WhatsApp</span>
+                <span>Call</span>
               </a>
             </div>
             <a
@@ -352,16 +352,16 @@ function Footer() {
 
           <Link href={"/glaf"}>GLAF</Link>
         </div>
-        <Link
+        <a
           className="footer-phone"
-          href={whatsappHref}
+          href={`tel:+91${phone}`}
           target="_blank"
           rel="noreferrer"
         >
-          <span>Call / WhatsApp</span>
+          <span>Call</span>
           {/* <strong>{phone}</strong> */}
           <ArrowUpRight size={18} />
-        </Link>
+        </a>
       </div>
       <div className="footer-legal container">
         <span>© {new Date().getFullYear()} Glanzeuro Lingo</span>
@@ -1431,14 +1431,14 @@ function CoursePage({
               <div className="course-footer-cta">
                 <p>Ready to find your next step?</p>
                 <ArrowButton href="/contact">Enquire now</ArrowButton>
-                <Link
+                <a
                   className="text-link"
                   href={whatsappHref}
                   target="_blank"
                   rel="noreferrer"
                 >
                   Chat on WhatsApp <ArrowUpRight size={16} />
-                </Link>
+                </a>
               </div>
             </div>
           </div>
