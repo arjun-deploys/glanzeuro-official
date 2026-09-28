@@ -103,6 +103,30 @@ function ArrowButton({
   external?: boolean
 }) {
   return (
+    <Link
+      className={`arrow-button ${dark ? "arrow-button--dark" : ""}`}
+      href={href}
+      target={external ? "_blank" : undefined}
+      rel={external ? "noreferrer" : undefined}
+    >
+      <span>{children}</span>
+      <ArrowUpRight size={17} strokeWidth={1.8} />
+    </Link>
+  )
+}
+
+function ArrowButtonExt({
+  href,
+  children,
+  dark = false,
+  external = false,
+}: {
+  href: string
+  children: React.ReactNode
+  dark?: boolean
+  external?: boolean
+}) {
+  return (
     <a
       className={`arrow-button ${dark ? "arrow-button--dark" : ""}`}
       href={href}
@@ -552,7 +576,7 @@ function ReferenceHero() {
             confidence, communicate effectively and unlock global opportunities.
           </p>
           <div className="reference-actions">
-            <ArrowButton href="#courses">Explore courses</ArrowButton>
+            <ArrowButtonExt href="#courses">Explore courses</ArrowButtonExt>
             <a
               className="whatsapp-pill"
               href={whatsappHref}
@@ -1325,9 +1349,9 @@ function CoursePage({
               <h1>{course.title}</h1>
               <p>{course.special ?? course.intro}</p>
               <div className="course-cta-row">
-                <ArrowButton href="#course-sections">
+                <ArrowButtonExt href="#course-sections">
                   View Course Details
-                </ArrowButton>
+                </ArrowButtonExt>
                 <a
                   className="text-link"
                   href="https://forms.gle/tP1GzgJZM8DoViFw6"
