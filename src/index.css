@@ -385,7 +385,7 @@ img {
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
-  gap: 26px;
+  gap: 16px;
   min-width: 192px;
   padding: 17px 18px 17px 20px;
   background: var(--brand-pink);
@@ -2180,6 +2180,11 @@ img {
   }
   .mentor-watermark {
     top: 30px;
+    right: 10px;
+    color: rgba(255, 255, 255, 0.33);
+    font: 800 4.25rem / 0.75 var(--sans) !important;
+    letter-spacing: -0.09em;
+    text-align: right;
   }
   .quote-gallery {
     grid-template-columns: 1fr;
@@ -2274,7 +2279,7 @@ img {
     height: 390px;
   }
   .about-mentor {
-    padding: 100px 0;
+    padding: 10px 0 10px 0;
   }
   .about-mentor__grid,
   .mission-heading {
@@ -2881,9 +2886,9 @@ img {
   .desktop-nav a {
     font-size: 14px;
   }
-  .reference-hero__visual {
+  /* .reference-hero__visual {
     height: 530px;
-  }
+  } */
 }
 @media (max-width: 900px) {
   .site-header {
@@ -2924,8 +2929,7 @@ img {
     font-size: clamp(3.8rem, 15vw, 6.8rem);
   }
   .reference-hero__visual {
-    height: 470px;
-    margin-top: -30px;
+    margin-top: 1.25rem;
   }
   .reference-script {
     right: 1%;
@@ -2999,7 +3003,7 @@ img {
   }
   .reference-course-card .arrow-button {
     font-size: 7px;
-    padding: 8px 10px;
+    padding: 8px 10px 8px 20px;
   }
   .reference-proof {
     letter-spacing: 0.12em;

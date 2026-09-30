@@ -47,8 +47,13 @@ import {
 } from "@/lib/siteData"
 import "./index.css"
 
-import logo from "../public/img/glanzeuro_logo.png"
-import hero from "../public/img/hero.png"
+import logo from "/img/glanzeuro_logo.webp"
+import hero from "/img/hero.webp"
+
+import about1 from "/img/about1.webp"
+import about2 from "/img/about2.webp"
+import frenchImage from "/img/french.webp"
+import dutchImage from "/img/dutch.webp"
 
 const navItems = [
   ["Home", "/"],
@@ -578,7 +583,7 @@ function ReferenceHero() {
           <div className="reference-actions">
             <ArrowButtonExt href="#courses">Explore courses</ArrowButtonExt>
             <a
-              className="whatsapp-pill"
+              className="whatsapp-pill hidden! md:block!"
               href={whatsappHref}
               target="_blank"
               rel="noreferrer"
@@ -625,7 +630,7 @@ function CourseCards() {
     <div className="course-cards container" id="courses">
       <div className="reference-course-card">
         <img
-          src={images.french}
+          src={frenchImage}
           alt="Eiffel Tower representing French learning"
         />
         <div>
@@ -642,7 +647,7 @@ function CourseCards() {
         </div>
       </div>
       <div className="reference-course-card">
-        <img src={images.dutch} alt="Dutch learning course image" />
+        <img src={dutchImage} alt="Dutch learning course image" />
         <div>
           <h3>Dutch</h3>
           <p>Learn. Practise. Progress.</p>
@@ -710,7 +715,7 @@ function AboutPreview() {
         </div>
         <div className="reference-about__image">
           <img
-            src={images.about}
+            src={about1}
             alt="Language learning books and a warm study table"
             loading="lazy"
           />
@@ -883,7 +888,7 @@ function LanguageSection({ language }: { language: "french" | "dutch" }) {
             <div className="vertical-word">DUTCH / DUTCH / DUTCH</div>
           )}
           <img
-            src={french ? images.french : images.dutch}
+            src={french ? frenchImage : dutchImage}
             alt={
               french
                 ? "Friends in a warm European conversation"
@@ -998,9 +1003,17 @@ function MentorSection() {
       <section className="about-mentor">
         <div className="about-mentor__grid container">
           <div>
-            <SectionLabel number="07" numberLight>
-              Founder &amp; Language Mentor — Glanzeuro Lingo
-            </SectionLabel>
+            <div className="hidden md:block">
+              <SectionLabel number="07" numberLight>
+                Founder &amp; Language Mentor — Glanzeuro Lingo
+              </SectionLabel>
+            </div>
+            <div className="block md:hidden">
+              <SectionLabel number="07" numberLight>
+                Founder &amp; Language Mentor
+              </SectionLabel>
+            </div>
+
             <h2>
               Praveena
               <br />
@@ -1256,7 +1269,7 @@ function HubPage({ language }: { language: "french" | "dutch" }) {
             </div>
             <div className="hub-hero__image">
               <img
-                src={french ? images.french : images.dutch}
+                src={french ? frenchImage : dutchImage}
                 alt={
                   french
                     ? "French learning conversation"
@@ -1482,7 +1495,7 @@ function About() {
           </div>
           <div className="about-photo">
             <img
-              src={images.about}
+              src={about2}
               alt="Learners sharing a language-learning moment"
               loading="lazy"
             />
@@ -1765,7 +1778,11 @@ function GlafPage() {
                     <h3>{item.title}</h3>
                   </div>
 
-                  <audio controls preload="none">
+                  <audio
+                    controls
+                    controlsList="nodownload noplaybackrate"
+                    preload="none"
+                  >
                     <source src={item.file} type="audio/mpeg" />
                     Your browser does not support audio playback.
                   </audio>
