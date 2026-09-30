@@ -423,10 +423,8 @@ function Header() {
           </nav>
           <div className="mobile-menu__footer">
             <div>
-              <a href={`tel:${phone}`}>
-                {" "}
-                <span>Call</span>
-              </a>
+              <span>Call / WhatsApp</span>
+              <a href={`tel:${phone}`}>{phone}</a>
             </div>
             <a
               href="https://forms.gle/tP1GzgJZM8DoViFw6"
@@ -469,7 +467,7 @@ function Footer() {
           rel="noreferrer"
         >
           <span>Call</span>
-          {/* <strong>{phone}</strong> */}
+          <strong>{phone}</strong>
           <ArrowUpRight size={18} />
         </a>
       </div>

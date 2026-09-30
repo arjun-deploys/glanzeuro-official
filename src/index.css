@@ -245,7 +245,7 @@ img {
 .menu-kicker {
   text-transform: uppercase;
   letter-spacing: 0.17em;
-  color: var(--brand-gold);
+  color: var(--brand-white);
   font-size: 10px;
   font-weight: 800;
 }
@@ -268,7 +268,6 @@ img {
 .mobile-menu__nav {
   display: flex;
   flex-direction: column;
-  margin-top: 13vh;
 }
 .mobile-menu__link {
   display: grid;
@@ -277,7 +276,7 @@ img {
   align-items: center;
   padding: 14px 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  font: 400 clamp(2.5rem, 5vw, 5rem) / 1 var(--display);
+  font: 400 clamp(2.5rem, 4vw, 3.25rem) / 1 var(--display);
   transition:
     color 0.2s var(--ease),
     padding 0.2s var(--ease);
@@ -324,7 +323,7 @@ img {
 }
 .menu-drawer__cta {
   color: var(--brand-black) !important;
-  background: var(--brand-pink);
+  background: var(--brand-gold);
   padding: 14px 16px;
   display: inline-flex;
   align-items: center;
@@ -334,7 +333,8 @@ img {
     transform 0.2s var(--ease);
 }
 .menu-drawer__cta:hover {
-  background: var(--brand-gold);
+  background: var(--brand-black);
+  color: var(--brand-white) !important;
   transform: translateY(-3px);
 }
 
@@ -2006,11 +2006,9 @@ img {
     min-height: calc(100% - 150px);
     padding: 22px 20px 28px;
   }
-  .mobile-menu__nav {
-    margin-top: 7vh;
-  }
+
   .mobile-menu__link {
-    font-size: clamp(2.5rem, 12vw, 4.8rem);
+    font-size: clamp(2.5rem, 5vw, 3.25rem);
   }
   .site-header {
     height: 88px;
