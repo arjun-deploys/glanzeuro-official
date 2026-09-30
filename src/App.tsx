@@ -62,6 +62,7 @@ const navItems = [
   ["French", "/french"],
   ["Dutch", "/dutch"],
   ["About", "/about"],
+  ["Contact", "/contact"],
 ] as const
 
 const glafAudioItems = Array.from({ length: 25 }, (_, index) => {
@@ -685,15 +686,21 @@ function ReferenceHero() {
             confidence, communicate effectively and unlock global opportunities.
           </p>
           <div className="reference-actions">
-            <ArrowButtonExt href="#courses">Explore courses</ArrowButtonExt>
-            <a
-              className="whatsapp-pill hidden! md:block!"
+            <ArrowButtonExt href="#courses" dark>Explore courses</ArrowButtonExt>
+            <div className="block">
+              <ArrowButtonExt href={`tel:+91${phone}`} dark>
+                Call at {phone}
+              </ArrowButtonExt>
+            </div>
+
+            {/* <a
+              className="whatsapp-pill hidden! md:flex!"
               href={whatsappHref}
               target="_blank"
               rel="noreferrer"
             >
               ◌&nbsp; Chat on WhatsApp <ArrowUpRight size={15} />
-            </a>
+            </a> */}
           </div>
           <div className="reference-proof">
             <span>People</span>
@@ -747,7 +754,7 @@ function CourseCards() {
               </Link>
             ))}
           </div>
-          <ArrowButton href="/french">View French courses</ArrowButton>
+          <ArrowButton href="/french" dark>View French courses</ArrowButton>
         </div>
       </div>
       <div className="reference-course-card">
@@ -762,7 +769,7 @@ function CourseCards() {
               </Link>
             ))}
           </div>
-          <ArrowButton href="/dutch">View Dutch courses</ArrowButton>
+          <ArrowButton href="/dutch" dark>View Dutch courses</ArrowButton>
         </div>
       </div>
     </div>
@@ -881,7 +888,7 @@ function ReferenceCta() {
           <p>Learn. Speak. Succeed. with Glanzeuro Lingo.</p>
         </div>
         <div className="reference-actions">
-          <ArrowButton href="/contact">Enquire now</ArrowButton>
+          <ArrowButton href="/contact" dark>Enquire now</ArrowButton>
           <a
             className="whatsapp-pill"
             href={whatsappHref}
@@ -1713,6 +1720,11 @@ function EnquiryForm() {
             <span>Prefer to talk?</span>
             <strong>{phone}</strong>
           </a>
+
+          <a className="enquiry-contact" href={`tel:${phone}`}>
+            <span>Reach out us?</span>
+            <h5>enquiry@glanzeurolingo.com</h5>
+          </a>
         </div>
         <form className="enquiry-form" onSubmit={submit}>
           <div className="enquiry-form__row">
@@ -1832,10 +1844,6 @@ function GlafPage() {
                 <span>
                   <Headphones size={17} />
                   25 audio tracks
-                </span>
-                <span>
-                  <QrCode size={17} />
-                  Scan to download
                 </span>
               </div>
             </div>

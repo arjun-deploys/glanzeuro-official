@@ -3199,6 +3199,16 @@ img {
   color: var(--brand-pink);
   font: 400 2rem var(--display);
 }
+.enquiry-contact h5 {
+  color: var(--brand-pink);
+  font: 400 1.5rem var(--display);
+}
+@media (max-width: 900px) {
+  .enquiry-contact h5 {
+    color: var(--brand-pink);
+    font: 400 1.25rem var(--display);
+  }
+}
 .enquiry-form {
   padding: 32px;
   background: var(--soft-pink);
