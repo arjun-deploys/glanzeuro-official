@@ -8,7 +8,7 @@ import {
   Globe,
   ChevronDown,
   Phone,
-  Download,
+  // Download,
   QrCode,
   Headphones,
 } from "lucide-react"
