@@ -686,7 +686,9 @@ function ReferenceHero() {
             confidence, communicate effectively and unlock global opportunities.
           </p>
           <div className="reference-actions">
-            <ArrowButtonExt href="#courses" dark>Explore courses</ArrowButtonExt>
+            <ArrowButtonExt href="#courses" dark>
+              Explore courses
+            </ArrowButtonExt>
             <div className="block">
               <ArrowButtonExt href={`tel:+91${phone}`} dark>
                 Call at {phone}
@@ -754,7 +756,9 @@ function CourseCards() {
               </Link>
             ))}
           </div>
-          <ArrowButton href="/french" dark>View French courses</ArrowButton>
+          <ArrowButton href="/french" dark>
+            View French courses
+          </ArrowButton>
         </div>
       </div>
       <div className="reference-course-card">
@@ -769,7 +773,9 @@ function CourseCards() {
               </Link>
             ))}
           </div>
-          <ArrowButton href="/dutch" dark>View Dutch courses</ArrowButton>
+          <ArrowButton href="/dutch" dark>
+            View Dutch courses
+          </ArrowButton>
         </div>
       </div>
     </div>
@@ -888,7 +894,9 @@ function ReferenceCta() {
           <p>Learn. Speak. Succeed. with Glanzeuro Lingo.</p>
         </div>
         <div className="reference-actions">
-          <ArrowButton href="/contact" dark>Enquire now</ArrowButton>
+          <ArrowButton href="/contact" dark>
+            Enquire now
+          </ArrowButton>
           <a
             className="whatsapp-pill"
             href={whatsappHref}
@@ -1721,7 +1729,10 @@ function EnquiryForm() {
             <strong>{phone}</strong>
           </a>
 
-          <a className="enquiry-contact" href={`tel:${phone}`}>
+          <a
+            className="enquiry-contact"
+            href={`mailto:enquiry@glanzeurolingo.com`}
+          >
             <span>Reach out us?</span>
             <h5>enquiry@glanzeurolingo.com</h5>
           </a>
