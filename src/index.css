@@ -2276,10 +2276,14 @@ img {
     padding-bottom: 75px;
   }
   .about-photo {
-    height: 390px;
+    width: 100%;
+    height: auto;
   }
   .about-mentor {
     padding: 10px 0 10px 0;
+  }
+  .about-mentor.extra-space {
+    padding: 60px 0 60px 0;
   }
   .about-mentor__grid,
   .mission-heading {

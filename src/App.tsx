@@ -1605,7 +1605,7 @@ function About() {
             />
           </div>
         </section>
-        <section className="about-mentor">
+        <section className="about-mentor extra-space">
           <div className="about-mentor__grid container">
             <div>
               <SectionLabel number="02" numberLight>
@@ -1900,13 +1900,13 @@ function GlafPage() {
                       </span>
                     </div>
 
-                    <Link
+                    <a
                       className="glaf-download"
                       href={item.qr}
                       download={`GLAF-Audio-${item.number}-QR.png`}
                     >
                       <Download size={15} /> Download QR
-                    </Link>
+                    </a>
                   </div>
                 </article>
               ))}
