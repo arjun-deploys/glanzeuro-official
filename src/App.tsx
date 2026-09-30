@@ -1709,10 +1709,10 @@ function EnquiryForm() {
             Tell us a little about what you want to learn. We’ll help you find
             the right language, level and next step.
           </p>
-          <Link className="enquiry-contact" href={`tel:${phone}`}>
+          <a className="enquiry-contact" href={`tel:${phone}`}>
             <span>Prefer to talk?</span>
             <strong>{phone}</strong>
-          </Link>
+          </a>
         </div>
         <form className="enquiry-form" onSubmit={submit}>
           <div className="enquiry-form__row">
