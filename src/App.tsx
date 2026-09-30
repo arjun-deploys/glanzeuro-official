@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { Link, Route, Switch, useLocation } from "wouter"
 import {
   Video,
@@ -45,6 +45,9 @@ import {
   dutchLevels,
 } from "@/lib/siteData"
 import "./index.css"
+
+import Lenis from "lenis"
+import "lenis/dist/lenis.css"
 
 import logo from "/img/glanzeuro_logo.webp"
 import hero from "/img/hero.webp"
@@ -175,9 +178,11 @@ function SectionLink({
     e.preventDefault()
 
     if (window.location.pathname === "/") {
-      document.getElementById(id)?.scrollIntoView({
-        behavior: "smooth",
-      })
+      const el = document.getElementById(id)
+      if (!el) return
+      const lenis = getLenis()
+      if (lenis) lenis.scrollTo(el, { offset: -80 })
+      else el.scrollIntoView({ behavior: "smooth" })
     } else {
       navigate(`/#${id}`)
     }
@@ -187,6 +192,105 @@ function SectionLink({
     <Link href={`/#${id}`} onClick={handleClick}>
       {children}
     </Link>
+  )
+}
+
+// ---------- Lenis ----------
+let lenisInstance: Lenis | null = null
+const getLenis = () => lenisInstance
+
+function SmoothScroll({ paused }: { paused: boolean }) {
+  useEffect(() => {
+    // Respect reduced-motion: fall back to native scrolling
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
+
+    const lenis = new Lenis({
+      duration: 1.1,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true, // wheel/trackpad only
+      syncTouch: false, // keep native touch scrolling on phones
+      anchors: { offset: -80 }, // "#courses" style links, offset for the fixed header
+      autoRaf: true,
+    })
+    lenisInstance = lenis
+
+    return () => {
+      lenis.destroy()
+      lenisInstance = null
+    }
+  }, [])
+
+  // Freeze scrolling while the loader is visible
+  useEffect(() => {
+    if (paused) getLenis()?.stop()
+    else getLenis()?.start()
+  }, [paused])
+
+  return null
+}
+
+// ---------- Page loader ----------
+const PRELOAD_IMAGES = [logo, hero, frenchImage, dutchImage, about1]
+const MIN_LOADER_MS = 900
+const MAX_LOADER_MS = 6000
+
+function preloadImage(src: string) {
+  return new Promise<void>((resolve) => {
+    const img = new Image()
+    img.src = src
+    const done = () => resolve()
+    if (img.decode) img.decode().then(done).catch(done)
+    else {
+      img.onload = done
+      img.onerror = done
+    }
+  })
+}
+
+function PageLoader({ onDone }: { onDone: () => void }) {
+  const [hiding, setHiding] = useState(false)
+
+  useEffect(() => {
+    document.documentElement.style.overflow = "hidden"
+    let cancelled = false
+    const start = performance.now()
+
+    const assets = Promise.all([
+      ...PRELOAD_IMAGES.map(preloadImage),
+      document.fonts?.ready ?? Promise.resolve(),
+    ])
+    const timeout = new Promise((r) => setTimeout(r, MAX_LOADER_MS))
+
+    Promise.race([assets, timeout]).then(() => {
+      const wait = Math.max(0, MIN_LOADER_MS - (performance.now() - start))
+      setTimeout(() => {
+        if (cancelled) return
+        setHiding(true) // triggers fade-out
+        setTimeout(() => {
+          document.documentElement.style.overflow = ""
+          onDone()
+        }, 600)
+      }, wait)
+    })
+
+    return () => {
+      cancelled = true
+      document.documentElement.style.overflow = ""
+    }
+  }, [onDone])
+
+  return (
+    <div
+      className={`page-loader ${hiding ? "page-loader--hide" : ""}`}
+      role="status"
+      aria-live="polite"
+      aria-label="Loading"
+    >
+      <img src={logo} alt="Glanzeuro Lingo" className="page-loader__logo" />
+      <div className="page-loader__bar">
+        <span />
+      </div>
+    </div>
   )
 }
 
@@ -284,6 +388,7 @@ function Header() {
       <div
         className={`mobile-menu ${menuOpen ? "mobile-menu--open" : ""}`}
         aria-hidden={!menuOpen}
+        data-lenis-prevent
       >
         <div className="menu-drawer__visual">
           <div className="menu-drawer__vertical">
@@ -1829,7 +1934,22 @@ function ScrollToTop() {
   const [location] = useLocation()
 
   useEffect(() => {
-    window.scrollTo(0, 0)
+    const hash = window.location.hash.replace("#", "")
+    const lenis = getLenis()
+
+    if (hash) {
+      // wait a tick so the new page has rendered
+      const t = setTimeout(() => {
+        const el = document.getElementById(hash)
+        if (!el) return
+        if (lenis) lenis.scrollTo(el, { offset: -80, immediate: true })
+        else el.scrollIntoView()
+      }, 100)
+      return () => clearTimeout(t)
+    }
+
+    if (lenis) lenis.scrollTo(0, { immediate: true, force: true })
+    else window.scrollTo(0, 0)
   }, [location])
 
   return null
@@ -1859,8 +1979,13 @@ function Router() {
 }
 
 export default function App() {
+  const [loading, setLoading] = useState(true)
+  const handleDone = useCallback(() => setLoading(false), [])
+
   return (
     <>
+      <SmoothScroll paused={loading} />
+      {loading && <PageLoader onDone={handleDone} />}
       <ScrollToTop />
       <Router />
     </>
