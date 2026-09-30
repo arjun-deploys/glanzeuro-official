@@ -1,9 +1,5 @@
 import { courses } from "@/data/courses"
 
-
-
-
-
 export type Language = "french" | "dutch"
 
 export type Course = {

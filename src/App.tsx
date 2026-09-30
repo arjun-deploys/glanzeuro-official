@@ -36,7 +36,6 @@ import {
 import {
   frenchLevels,
   getCourse,
-  images,
   phone,
   principles,
   seo,
