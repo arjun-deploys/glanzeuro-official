@@ -1900,13 +1900,13 @@ function GlafPage() {
                       </span>
                     </div>
 
-                    <a
+                    {/* <a
                       className="glaf-download"
                       href={item.qr}
                       download={`GLAF-Audio-${item.number}-QR.png`}
                     >
                       <Download size={15} /> Download QR
-                    </a>
+                    </a> */}
                   </div>
                 </article>
               ))}
