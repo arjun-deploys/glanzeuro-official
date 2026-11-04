@@ -17,6 +17,12 @@ export interface Course {
   sections: CourseSection[]
   assessment: string
   certificate: string
+  /**
+   * Set to false to keep a level's syllabus on file without publishing it.
+   * The brief lists Dutch as A1 to A2, so Dutch B1 and B2 are hidden until
+   * those batches are confirmed.
+   */
+  offered?: boolean
 }
 
 const ASSESSMENT =
@@ -346,7 +352,8 @@ export const courses: Course[] = [
     descriptor: "Elementary",
     intro:
       "Elementary Dutch designed to develop stronger speaking, listening, reading and writing skills through practical communication.",
-    special: "Includes Dutch A2 Inburgering Exam Preparation, where applicable.",
+    special:
+      "Includes Dutch A2 Inburgering Exam Preparation, where applicable.",
     sections: [
       {
         title: "Speaking Skills",
@@ -423,6 +430,7 @@ export const courses: Course[] = [
   {
     language: "dutch",
     level: "B1",
+    offered: false,
     title: "Dutch B1 – Intermediate",
     descriptor: "Intermediate",
     intro:
@@ -492,6 +500,7 @@ export const courses: Course[] = [
   {
     language: "dutch",
     level: "B2",
+    offered: false,
     title: "Dutch B2 – Upper Intermediate",
     descriptor: "Upper Intermediate",
     intro:
@@ -561,8 +570,18 @@ export const courses: Course[] = [
   },
 ]
 
-export function getCourse(language: Language, level: string): Course | undefined {
-  return courses.find(
-    (c) => c.language === language && c.level.toLowerCase() === level.toLowerCase()
+export const offeredCourses = courses.filter((c) => c.offered !== false)
+
+export function getCourse(
+  language: Language,
+  level: string
+): Course | undefined {
+  return offeredCourses.find(
+    (c) =>
+      c.language === language && c.level.toLowerCase() === level.toLowerCase()
   )
+}
+
+export function levelsFor(language: Language) {
+  return offeredCourses.filter((c) => c.language === language)
 }

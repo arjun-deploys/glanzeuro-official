@@ -1,0 +1,10 @@
+# Old URLs from the previous site (permanent redirects)
+/french            /courses/french        301
+/french/:level     /courses/french/:level 301
+/dutch/b1          /courses/dutch         301
+/dutch/b2          /courses/dutch         301
+/dutch             /courses/dutch         301
+/dutch/:level      /courses/dutch/:level  301
+
+# Single-page app: serve index.html for every other route
+/*                 /index.html            200

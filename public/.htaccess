@@ -1,0 +1,22 @@
+# Apache / cPanel / Hostinger hosting
+Options -MultiViews
+RewriteEngine On
+
+# Old URLs from the previous site (permanent redirects)
+RewriteRule ^french/?$ /courses/french [R=301,L]
+RewriteRule ^french/(a1|a2|b1|b2)/?$ /courses/french/$1 [R=301,L,NC]
+RewriteRule ^dutch/?$ /courses/dutch [R=301,L]
+RewriteRule ^dutch/(a1|a2)/?$ /courses/dutch/$1 [R=301,L,NC]
+RewriteRule ^dutch/(b1|b2)/?$ /courses/dutch [R=301,L,NC]
+
+# Single-page app: serve index.html for routes that are not real files
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.html [L]
+
+# Cache hashed build assets for a year
+<IfModule mod_headers.c>
+  <FilesMatch "\.(js|css|woff2)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+</IfModule>

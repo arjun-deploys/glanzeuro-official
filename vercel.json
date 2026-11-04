@@ -1,0 +1,40 @@
+{
+  "redirects": [
+    {
+      "source": "/french",
+      "destination": "/courses/french",
+      "permanent": true
+    },
+    {
+      "source": "/french/:level",
+      "destination": "/courses/french/:level",
+      "permanent": true
+    },
+    {
+      "source": "/dutch/b1",
+      "destination": "/courses/dutch",
+      "permanent": true
+    },
+    {
+      "source": "/dutch/b2",
+      "destination": "/courses/dutch",
+      "permanent": true
+    },
+    {
+      "source": "/dutch",
+      "destination": "/courses/dutch",
+      "permanent": true
+    },
+    {
+      "source": "/dutch/:level",
+      "destination": "/courses/dutch/:level",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
