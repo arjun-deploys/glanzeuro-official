@@ -209,7 +209,7 @@ export function LevelChips({
   levels: string[]
   note?: string
 }) {
-  if (!levels.length) return note ? <p className="level-note">{note}</p> : null
+  // if (!levels.length) return note ? <p className="level-note">{note}</p> : null
   return (
     <ul className="level-chips" aria-label="Levels offered">
       {levels.map((l) => (

@@ -7,6 +7,11 @@
  * Search this file for "CONFIRM" to find every open item.
  */
 
+import french from "../../public/course/french.png"
+import dutch from "../../public/course/dutch.png"
+import german from "../../public/course/german.png"
+import speak from "../../public/course/speak.png"
+
 export type Faq = { q: string; a: string }
 export type Illustration =
   "eiffel" | "windmill" | "gate" | "speech" | "exam" | "career" | "globe"
@@ -18,6 +23,7 @@ export type Programme = {
   path: string
   name: string
   title: string
+  image: string
   flag: string[] // stripe colours, drawn as a round badge
   flagDirection: "vertical" | "horizontal"
   illustration: Illustration
@@ -85,6 +91,7 @@ export const programmes: Programme[] = [
     title: "French Language Training",
     flag: ["#1f3f95", "#ffffff", "#e1323b"],
     flagDirection: "vertical",
+    image: french,
     illustration: "eiffel",
     levels: ["A1", "A2", "B1", "B2"],
     cardSummary:
@@ -191,6 +198,7 @@ export const programmes: Programme[] = [
     title: "Dutch Language Training",
     flag: ["#ae1c28", "#ffffff", "#21468b"],
     flagDirection: "horizontal",
+    image: dutch,
     illustration: "windmill",
     levels: ["A1", "A2"],
     cardSummary:
@@ -280,6 +288,7 @@ export const programmes: Programme[] = [
     title: "German Language Training",
     flag: ["#111111", "#dd0000", "#ffce00"],
     flagDirection: "horizontal",
+    image: german,
     illustration: "gate",
     // CONFIRM: add the German levels currently offered, e.g. ["A1", "A2"].
     levels: [],
@@ -356,6 +365,7 @@ export const programmes: Programme[] = [
     title: "Spoken English",
     flag: [],
     flagDirection: "horizontal",
+    image: speak,
     illustration: "speech",
     // CONFIRM: levels, duration and format for Spoken English.
     levels: [],

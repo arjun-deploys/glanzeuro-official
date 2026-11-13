@@ -45,7 +45,8 @@ export function CourseCard({
   return (
     <article className="course-card">
       <div className="course-card__art">
-        <Art name={p.illustration} />
+        {/* <Art name={p.illustration} /> */}
+        <img src={p.image} className="art" />
         <FlagBadge colors={p.flag} direction={p.flagDirection} />
       </div>
       <div className="course-card__body">
