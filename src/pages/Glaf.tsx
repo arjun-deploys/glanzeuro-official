@@ -3,21 +3,38 @@ import { PageFrame } from "@/components/layout/Layout"
 import { Breadcrumbs } from "@/components/ui"
 import { usePageMeta } from "@/lib/seo"
 
-const glafAudioItems = Array.from({ length: 25 }, (_, index) => {
-  const number = index + 1
-  return {
-    number: String(number).padStart(2, "0"),
-    title: `GLAF Audio ${number}`,
-    label:
-      index < 10
-        ? "Starter listening"
-        : index < 20
-          ? "Practice session"
-          : "Confidence builder",
-    file: `/audio/GL Fr Audio ${number}.mp3`,
-    qr: `/qr/GLAB ${number}.png`,
-  }
-})
+const glafAudioItems = [
+  ...Array.from({ length: 25 }, (_, index) => {
+    const number = index + 1
+
+    return {
+      number: String(number).padStart(2, "0"),
+      title: `GLAF Audio ${number}`,
+      label:
+        index < 10
+          ? "Starter listening"
+          : index < 20
+            ? "Practice session"
+            : "Confidence builder",
+      file: `/audio/GL Fr Audio ${number}.mp3`,
+      qr: `/qr/GLAB ${number}.png`,
+    }
+  }),
+
+  ...Array.from({ length: 24 }, (_, index) => {
+    const number = index + 1
+    const qrNumber = number + 25
+    const audioNumber = `A${String(number).padStart(2, "0")}`
+
+    return {
+      number: String(qrNumber).padStart(2, "0"),
+      title: `GLAF Audio ${audioNumber}`,
+      label: "Level 2 listening",
+      file: `/audio/GLAFA2-${audioNumber}.mp3`,
+      qr: `/qr/GLAB ${qrNumber}.png`,
+    }
+  }),
+]
 
 export default function GlafPage() {
   usePageMeta({
