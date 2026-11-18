@@ -19,8 +19,6 @@ export interface Course {
   certificate: string
   /**
    * Set to false to keep a level's syllabus on file without publishing it.
-   * The brief lists Dutch as A1 to A2, so Dutch B1 and B2 are hidden until
-   * those batches are confirmed.
    */
   offered?: boolean
 }
@@ -430,7 +428,6 @@ export const courses: Course[] = [
   {
     language: "dutch",
     level: "B1",
-    offered: false,
     title: "Dutch B1 – Intermediate",
     descriptor: "Intermediate",
     intro:
@@ -500,7 +497,6 @@ export const courses: Course[] = [
   {
     language: "dutch",
     level: "B2",
-    offered: false,
     title: "Dutch B2 – Upper Intermediate",
     descriptor: "Upper Intermediate",
     intro:

@@ -23,7 +23,7 @@ export function CoursesHub() {
     title:
       "Language Courses Online | French, Dutch, German, English | Glanzeuro Lingo",
     description:
-      "Explore online French (A1 to B2), Dutch (A1 to A2), German and Spoken English courses with live, interactive classes from Glanzeuro Lingo.",
+      "Explore online French (A1 to B2), Dutch (A1 to B2), German and Spoken English courses with live, interactive classes from Glanzeuro Lingo.",
     path: "/courses",
   })
   return (

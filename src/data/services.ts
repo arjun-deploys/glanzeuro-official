@@ -200,11 +200,11 @@ export const programmes: Programme[] = [
     flagDirection: "horizontal",
     image: dutch,
     illustration: "windmill",
-    levels: ["A1", "A2"],
+    levels: ["A1", "A2", "B1", "B2"],
     cardSummary:
       "Practical communication, everyday conversations, vocabulary, grammar and four-skill practice.",
     cardBenefits: [
-      "Interactive, practical classes",
+      "Structured A1 to B2 curriculum",
       "Everyday conversations from day one",
       "Grammar explained simply",
       "Inburgering preparation, where applicable",
@@ -212,13 +212,14 @@ export const programmes: Programme[] = [
     ctaLabel: "Explore Dutch",
     overview: [
       "Our Dutch programme focuses on the language you need for daily life: introducing yourself, shopping, appointments, travel and conversations at work.",
-      "A1 builds a strong foundation and A2 develops the confidence to handle familiar situations on your own. Each class combines speaking, listening, reading and writing practice.",
+      "A1 builds a strong foundation, A2 develops the confidence to handle familiar situations on your own, and B1 and B2 take you to independent, fluent communication in social and professional settings. Each class combines speaking, listening, reading and writing practice.",
     ],
     whoFor: [
       "Beginners with no prior Dutch",
       "People relocating to the Netherlands or Belgium",
       "Professionals working with Dutch-speaking teams",
       "Learners preparing for the Inburgering A2 exam",
+      "Intermediate learners who want to speak more fluently at work and in daily life",
     ],
     outcomes: [
       {
@@ -230,6 +231,16 @@ export const programmes: Programme[] = [
         level: "A2",
         name: "Elementary",
         text: "Everyday conversations, routines, appointments, travel and short messages.",
+      },
+      {
+        level: "B1",
+        name: "Intermediate",
+        text: "Independent communication, opinions, work and social situations, and connected writing.",
+      },
+      {
+        level: "B2",
+        name: "Upper-Intermediate",
+        text: "Fluent, detailed discussions, presentations, professional communication and structured writing.",
       },
     ],
     skills: fourSkills("Dutch"),
@@ -257,7 +268,7 @@ export const programmes: Programme[] = [
     faqs: [
       {
         q: "Which Dutch levels do you offer?",
-        a: "We currently offer Dutch A1 (Beginner) and A2 (Elementary).",
+        a: "We offer Dutch A1 (Beginner), A2 (Elementary), B1 (Intermediate) and B2 (Upper Intermediate).",
       },
       {
         q: "Do you prepare learners for the Inburgering exam?",
@@ -276,9 +287,9 @@ export const programmes: Programme[] = [
       "Hello Glanzeuro Lingo, I would like to know more about the Dutch course.",
     interest: "Dutch",
     seo: {
-      title: "Online Dutch Course A1 and A2 | Glanzeuro Lingo",
+      title: "Online Dutch Course A1 to B2 | Glanzeuro Lingo",
       description:
-        "Learn Dutch online at A1 and A2 with live classes for everyday conversation, grammar, vocabulary and four-skill practice, with Inburgering preparation where applicable.",
+        "Learn Dutch online from A1 to B2 with live classes for everyday conversation, grammar, vocabulary and four-skill practice, with Inburgering preparation where applicable.",
     },
   },
   {

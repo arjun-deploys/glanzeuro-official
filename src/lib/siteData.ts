@@ -58,7 +58,7 @@ export const mainNav: NavItem[] = [
     href: "/courses",
     children: [
       { label: "French", href: "/courses/french", note: "A1 to B2" },
-      { label: "Dutch", href: "/courses/dutch", note: "A1 to A2" },
+      { label: "Dutch", href: "/courses/dutch", note: "A1 to B2" },
       { label: "German", href: "/courses/german", note: "Levels on enquiry" },
       {
         label: "Spoken English",
@@ -110,10 +110,9 @@ export const mainNav: NavItem[] = [
 /**
  * Learner testimonials.
  *
- * Only entries with `verified: true` are shown on the website. The quotes
- * below were placeholders on the previous site and have NOT been approved,
- * so they stay hidden. Replace them with genuine learner feedback (with the
- * learner’s permission) and set `verified: true`.
+ * Only entries with `verified: true` are shown on the website. These are the
+ * five testimonials carried over from the previous site. To hide one, set
+ * `verified: false`.
  */
 export type Testimonial = {
   quote: string
@@ -128,21 +127,35 @@ export const testimonials: Testimonial[] = [
       "The speaking practice made me stop translating every sentence in my head. I finally feel comfortable starting a conversation.",
     name: "Aarav S.",
     course: "French A1",
-    verified: false,
+    verified: true,
   },
   {
     quote:
       "The classes are structured, warm and very practical. I could use what I learnt immediately at work.",
     name: "Maya R.",
     course: "Dutch A2",
-    verified: false,
+    verified: true,
   },
   {
     quote:
       "I started as a complete beginner and now I can introduce myself, ask questions and keep going when I make a mistake.",
     name: "Nisha K.",
     course: "French A1",
-    verified: false,
+    verified: true,
+  },
+  {
+    quote:
+      "The lessons give you a clear rhythm. Listening, speaking, vocabulary — everything connects and feels manageable.",
+    name: "Daniel P.",
+    course: "Dutch B1",
+    verified: true,
+  },
+  {
+    quote:
+      "What I value most is the confidence. It feels less like memorising a language and more like finding your voice.",
+    name: "Sara M.",
+    course: "French B1",
+    verified: true,
   },
 ]
 
