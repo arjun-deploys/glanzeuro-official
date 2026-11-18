@@ -89,7 +89,6 @@ export function CoursesHub() {
 export function ProgrammePage({ slug }: { slug: Programme["slug"] }) {
   const p = programmes.find((x) => x.slug === slug)!
   usePageMeta({ ...p.seo, path: p.path })
-  const photo = photos[slug]
   const levelPages = p.hasLevelPages ? levelsFor(slug as Language) : []
   const others = programmes.filter((x) => x.slug !== slug)
   const isEstablished = p.hasLevelPages

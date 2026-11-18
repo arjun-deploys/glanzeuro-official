@@ -1827,7 +1827,7 @@ a.level-grid__item:hover {
 }
 .site-foot__grid {
   display: grid;
-  grid-template-columns: 1.4fr repeat(5, minmax(0, 1fr));
+  grid-template-columns: 1.4fr repeat(4, minmax(0, 1fr)) 1.4fr;
   gap: 32px;
 }
 .site-foot__brand img {
