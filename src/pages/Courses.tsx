@@ -115,10 +115,10 @@ export function ProgrammePage({ slug }: { slug: Programme["slug"] }) {
           </>
         }
         art={
-          photo ? (
+          p.image ? (
             <img
-              src={photo.src}
-              alt={photo.alt}
+              src={p.image}
+              alt={p.title}
               className="page-hero__photo"
               width={1046}
               height={768}
