@@ -1,7 +1,5 @@
 import { Link, Redirect } from "wouter"
 import { ArrowRight } from "lucide-react"
-import frenchImage from "/img/french.webp"
-import dutchImage from "/img/dutch.webp"
 import { PageFrame } from "@/components/layout/Layout"
 import {
   Button,
@@ -19,18 +17,6 @@ import { confirmedFormat, programmes, type Programme } from "@/data/services"
 import { getCourse, levelsFor, type Language } from "@/data/courses"
 import { enrolFormUrl } from "@/lib/siteData"
 import { usePageMeta } from "@/lib/seo"
-
-const photos: Partial<Record<Programme["slug"], { src: string; alt: string }>> =
-  {
-    french: {
-      src: frenchImage,
-      alt: "A French tutor and learner practising conversation at a table with French textbooks",
-    },
-    dutch: {
-      src: dutchImage,
-      alt: "A Dutch language lesson beside a window overlooking an Amsterdam canal",
-    },
-  }
 
 export function CoursesHub() {
   usePageMeta({
