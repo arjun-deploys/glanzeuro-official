@@ -1,0 +1,8 @@
+# Netlify. Pages are pre-rendered (courses/french.html is served at
+# /courses/french) and unknown URLs get 404.html automatically.
+
+# Old URLs from the previous site (permanent redirects)
+/french            /courses/french        301
+/french/:level     /courses/french/:level 301
+/dutch             /courses/dutch         301
+/dutch/:level      /courses/dutch/:level  301

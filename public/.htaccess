@@ -1,0 +1,75 @@
+# Apache / cPanel / Hostinger hosting
+Options -MultiViews -Indexes
+DirectorySlash Off
+RewriteEngine On
+
+# Force HTTPS and the bare domain (https://glanzeurolingo.com).
+# Turn on by removing the "#" from the three lines below once the SSL
+# certificate is active. Most hosts have a "Force HTTPS" switch that does
+# the same; use one or the other, not both.
+# RewriteCond %{HTTPS} off [OR]
+# RewriteCond %{HTTP_HOST} ^www\. [NC]
+# RewriteRule ^ https://glanzeurolingo.com%{REQUEST_URI} [R=301,L,NE]
+
+# Old URLs from the previous site (permanent redirects)
+RewriteRule ^french/?$ /courses/french [R=301,L,NC]
+RewriteRule ^dutch/?$ /courses/dutch [R=301,L,NC]
+RewriteRule ^(french|dutch)/a1/?$ /courses/$1/a1 [R=301,L,NC]
+RewriteRule ^(french|dutch)/a2/?$ /courses/$1/a2 [R=301,L,NC]
+RewriteRule ^(french|dutch)/b1/?$ /courses/$1/b1 [R=301,L,NC]
+RewriteRule ^(french|dutch)/b2/?$ /courses/$1/b2 [R=301,L,NC]
+
+# Capital letters in a level page address (/courses/french/A1 -> /a1)
+RewriteCond %{REQUEST_URI} [A-Z]
+RewriteRule ^courses/(french|dutch)/a1/?$ /courses/${1}/a1 [R=301,L,NC]
+RewriteCond %{REQUEST_URI} [A-Z]
+RewriteRule ^courses/(french|dutch)/a2/?$ /courses/${1}/a2 [R=301,L,NC]
+RewriteCond %{REQUEST_URI} [A-Z]
+RewriteRule ^courses/(french|dutch)/b1/?$ /courses/${1}/b1 [R=301,L,NC]
+RewriteCond %{REQUEST_URI} [A-Z]
+RewriteRule ^courses/(french|dutch)/b2/?$ /courses/${1}/b2 [R=301,L,NC]
+
+# One address per page: drop a trailing slash and a ".html" ending
+RewriteCond %{REQUEST_URI} !^/$
+RewriteRule ^(.+)/$ /$1 [R=301,L]
+RewriteCond %{THE_REQUEST} \s/([^?\s]+)\.html[\s?]
+RewriteCond %1 !^(index|404)$
+RewriteRule ^ /%1 [R=301,L]
+RewriteCond %{THE_REQUEST} \s/index\.html[\s?]
+RewriteRule ^ / [R=301,L]
+
+# Serve the pre-rendered page: /courses/french -> courses/french.html
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+RewriteRule ^(.+)$ /$1.html [L]
+
+# Anything else is a real "not found" page
+ErrorDocument 404 /404.html
+
+<IfModule mod_mime.c>
+  AddType image/webp .webp
+  AddType application/manifest+json .webmanifest
+</IfModule>
+
+# Compress text files
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml application/javascript application/json application/xml image/svg+xml image/x-icon
+</IfModule>
+
+# Caching: build files have a content hash in their name, so they can be
+# cached for a year. Pages are always re-checked so updates show at once.
+<IfModule mod_headers.c>
+  <FilesMatch "\.(js|css|woff2?)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(webp|png|jpe?g|ico|mp3)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+  <FilesMatch "\.(html|xml|txt)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+</IfModule>
