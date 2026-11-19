@@ -70,21 +70,23 @@ export function EnquiryForm({
   const [sentName, setSentName] = useState("")
   // "#book-demo" or "?topic=demo" preselects the second request type;
   // "?topic=French" (any listed option) preselects the course or service.
-  const [request, setRequest] = useState(() => {
-    const topic = new URLSearchParams(window.location.search).get("topic")
-    return window.location.hash === `#${DEMO_HASH}` || topic === "demo"
-      ? requestTypes[1]
-      : requestTypes[0]
-  })
-  const [chosenInterest, setChosenInterest] = useState(() => {
-    const topic = (
-      new URLSearchParams(window.location.search).get("topic") || ""
-    ).toLowerCase()
+  // Read after mount so the pre-rendered HTML and the first render match.
+  const [request, setRequest] = useState(requestTypes[0])
+  const [chosenInterest, setChosenInterest] = useState(
+    interest || (isStudy ? "Study Abroad" : "")
+  )
+  useEffect(() => {
+    const topic = new URLSearchParams(window.location.search).get("topic") || ""
+    const demo = window.location.hash === `#${DEMO_HASH}` || topic === "demo"
     const match = interestGroups
       .flatMap((g) => g.options)
-      .find((o) => o.toLowerCase() === topic)
-    return match || interest || (isStudy ? "Study Abroad" : "")
-  })
+      .find((o) => o.toLowerCase() === topic.toLowerCase())
+    /* eslint-disable react-hooks/set-state-in-effect -- one-off sync from the URL after the pre-rendered page loads */
+    if (demo) setRequest(requestTypes[1])
+    if (match) setChosenInterest(match)
+    /* eslint-enable react-hooks/set-state-in-effect */
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- run once on mount
+  }, [])
 
   // In-page "Book a Demo Class" links change the hash without remounting.
   useEffect(() => {

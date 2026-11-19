@@ -39,8 +39,7 @@ const glafAudioItems = [
 export default function GlafPage() {
   usePageMeta({
     title: "GLAF: Glanzeuro Language Audio Files | Glanzeuro Lingo",
-    description:
-      "Glanzeuro Language Audio Files: 25 French listening tracks for guided practice. Play online or scan a QR code to listen on your phone.",
+    description: `Glanzeuro Language Audio Files: ${glafAudioItems.length} French listening tracks for guided practice. Play online or scan a QR code to listen on your phone.`,
     path: "/glaf",
   })
   return (
@@ -66,8 +65,8 @@ export default function GlafPage() {
               </p>
               <div className="glaf-hero__meta">
                 <span>
-                  <Headphones size={17} />
-                  25 audio tracks
+                  <Headphones size={17} aria-hidden="true" />
+                  {glafAudioItems.length} audio tracks
                 </span>
               </div>
             </div>
@@ -104,7 +103,7 @@ export default function GlafPage() {
                     <span className="glaf-card__label">{item.label}</span>
                   </div>
                   <div className="glaf-card__title">
-                    <Headphones size={19} />
+                    <Headphones size={19} aria-hidden="true" />
                     <h3>{item.title}</h3>
                   </div>
                   <audio
@@ -120,10 +119,13 @@ export default function GlafPage() {
                       <img
                         src={item.qr}
                         alt={`QR code for ${item.title}`}
+                        width={400}
+                        height={400}
                         loading="lazy"
+                        decoding="async"
                       />
                       <span>
-                        <QrCode size={13} /> Scan to listen
+                        <QrCode size={13} aria-hidden="true" /> Scan to listen
                       </span>
                     </div>
                   </div>

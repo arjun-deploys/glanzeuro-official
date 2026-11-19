@@ -16,22 +16,38 @@ npm run preview  # serve the production build locally
 npm run lint
 ```
 
-A ready-to-upload production build is already included in `dist/`.
+`npm run build` does three things: type-checks, builds the site, then **pre-renders every page
+to its own HTML file** (`scripts/prerender.mjs`). Each page therefore arrives with its real
+content, title, description and canonical link already in the HTML, which is what search engines
+and WhatsApp/LinkedIn link previews read. The same step regenerates `dist/sitemap.xml`, so the
+sitemap never goes out of date. When you add a page, add its route to `routes` in
+`src/entry-server.tsx`.
 
 ## Deploying
 
-This is a single-page app, so the host must serve `index.html` for every route and should
-permanently redirect the old URLs. Rules for the common hosts are included:
+A ready-to-upload build is included in `dist/` (built from this exact code).
+
+
+Upload the **contents** of `dist/` (not the folder itself). Pages are files such as
+`dist/courses/french.html`, served at the clean address `/courses/french`; unknown addresses get
+`404.html` with a real 404 status. Rules for the common hosts are included:
 
 | Host | File | Notes |
 | --- | --- | --- |
 | Apache, cPanel, Hostinger | `public/.htaccess` | Copied into `dist/` by the build. Upload the contents of `dist/`. |
-| Netlify | `public/_redirects` | Copied into `dist/` by the build. |
-| Vercel | `vercel.json` | At the project root. |
+| Netlify | `public/_redirects`, `public/_headers` | Copied into `dist/` by the build. |
+| Vercel | `vercel.json` | At the project root. Uses `cleanUrls`. |
 
-The old URLs `/french`, `/dutch`, `/french/a1` and so on redirect to the new `/courses/...`
-pages (Dutch B1 and B2 go to the Dutch page, as those levels are not currently offered).
-The app also redirects them itself, in case the host rules are not applied.
+The Apache rules were tested on a real Apache server: clean URLs, trailing-slash and `.html`
+redirects, old-URL redirects (also with capital letters, e.g. `/dutch/B2`), 404 status, gzip and
+caching. **HTTPS:** a "force HTTPS" rule is included but commented out in `.htaccess`. Turn on
+the host's "Force HTTPS" switch, or uncomment those lines once the SSL certificate is active.
+
+The old URLs `/french`, `/dutch`, `/french/a1`, `/dutch/b1` and so on redirect permanently to
+the matching new `/courses/...` page. The app also redirects them itself, in case the host rules
+are not applied.
+
+**After going live:** submit `https://glanzeurolingo.com/sitemap.xml` in Google Search Console.
 
 ## Enquiry forms: one-time activation
 
@@ -54,7 +70,8 @@ service, change `enquiryEndpoint` and the response check in `src/components/Enqu
 | Phone, email, WhatsApp message, enrolment form link, navigation | `src/lib/siteData.ts` |
 | Testimonials and home-page stats | `src/lib/siteData.ts` |
 | Language courses, TEF and TCF, career services, study abroad, Why Choose Us, learning journey | `src/data/services.ts` |
-| Level-by-level syllabus for French A1 to B2 and Dutch A1 to A2 | `src/data/courses.ts` |
+| Level-by-level syllabus for French and Dutch, A1 to B2 | `src/data/courses.ts` |
+| Course photos (large 1200px and small 640px WebP) | `src/assets/course/` |
 | Colours, typography, layout | `src/index.css` |
 | Line-art illustrations | `src/components/Illustrations.tsx` |
 
@@ -78,12 +95,14 @@ each of these.
 - **Format details for French and Dutch** (live classes, materials, weekly tests, one-to-one
   speaking, flexible timings, certificate). These were already on the previous site; please
   re-confirm.
-- **Testimonials.** The previous site's quotes were placeholders, so they are hidden. Add real
-  quotes (with the learner's permission) and set `verified: true`.
+- **Testimonials.** Five testimonials from the previous site are shown (three on the home page,
+  all five on `/testimonials`). The previous site's own code marked them as placeholder text,
+  so replace them with real quotes, with the learner's permission. Set `verified: false` to hide
+  one.
 - **Stats** ("500+ learners trained", "4.8/5 satisfaction"). Hidden until verified; set
   `verified: true` in `stats` to show them.
-- **Dutch B1 and B2.** The syllabus is kept in `courses.ts` with `offered: false`. Remove that
-  line to publish them again.
+- **GLAF QR codes** (`public/qr/`) open short links on me-qr.com, not this website. They keep
+  working only while that me-qr.com account is active.
 - **Photography.** French and Dutch use the existing photos. German, Spoken English, exams,
   career and study abroad use brand line-art illustrations until licensed photos are chosen.
 
@@ -95,8 +114,8 @@ each of these.
 /courses                            Language Courses (all)
   /courses/french                   French A1 to B2
     /courses/french/a1 … /b2        Level syllabus pages
-  /courses/dutch                    Dutch A1 to A2
-    /courses/dutch/a1, /a2          Level syllabus pages
+  /courses/dutch                    Dutch A1 to B2
+    /courses/dutch/a1 … /b2         Level syllabus pages
   /courses/german                   German
   /courses/spoken-english           Spoken English
 /exam-preparation                   TEF and TCF overview and comparison
@@ -113,15 +132,18 @@ each of these.
 /glaf                               GLAF audio library (footer link)
 ```
 
-`public/sitemap.xml` lists these for search engines and `public/robots.txt` points to it.
-Each page sets its own title, meta description, canonical URL and social tags.
+The build writes `dist/sitemap.xml` from these routes and `public/robots.txt` points to it. Each
+page has its own title, meta description, canonical URL and social tags, plus breadcrumb and FAQ
+structured data where relevant.
 
 ## Tested
 
-- Production build, TypeScript and ESLint pass with no errors or warnings.
-- Desktop (1440px), tablet (1024px) and phone (390px): no horizontal scrolling and no console errors.
-- All internal links resolve; old URLs redirect correctly.
-- Enquiry form: required-field validation, success confirmation, error fallback, and preselection
-  from "Book a Free Demo" links and `/contact?topic=...`.
-- Mobile menu, desktop dropdowns (mouse and keyboard, Escape to close).
+- Build, TypeScript, ESLint and Prettier pass with no errors or warnings.
+- All 27 pages at 360, 390, 768, 1024 and 1440px wide: no horizontal scrolling, no console or
+  hydration errors, one `<h1>` each, every image has alt text.
+- Mobile menu, desktop dropdowns, level tabs, client-side navigation, enquiry-form validation and
+  preselection from `?topic=` and `#book-demo` links, 404 page, GLAF audio and QR files.
+- All 49 resized QR codes decoded and checked against the originals: same links.
+- Lighthouse (simulated mid-range phone on slow 4G): SEO 100, Best Practices 96–100,
+  Accessibility 96–100, Performance 77–87, layout shift 0.
 - Live delivery to the inbox still needs testing after the FormSubmit activation above.

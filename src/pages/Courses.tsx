@@ -1,4 +1,5 @@
-import { Link, Redirect } from "wouter"
+import NotFound from "@/pages/NotFound"
+import { Link } from "wouter"
 import { ArrowRight } from "lucide-react"
 import { PageFrame } from "@/components/layout/Layout"
 import {
@@ -103,10 +104,13 @@ export function ProgrammePage({ slug }: { slug: Programme["slug"] }) {
           p.image ? (
             <img
               src={p.image}
+              srcSet={`${p.thumb} 640w, ${p.image} 1200w`}
+              sizes="(max-width: 1000px) 100vw, 520px"
               alt={p.title}
               className="page-hero__photo"
-              width={1046}
-              height={768}
+              width={p.imageSize[0]}
+              height={p.imageSize[1]}
+              fetchPriority="high"
             />
           ) : (
             <Art name={p.illustration} label={`Illustration for ${p.title}`} />
@@ -307,17 +311,27 @@ export function LevelPage({
   language: Language
   level: string
 }) {
-  const course = getCourse(language, level)
+  // Unknown levels (e.g. /courses/french/c1) show the "not found" page,
+  // matching the 404 the server returns for them.
+  if (!getCourse(language, level)) return <NotFound />
+  return <LevelPageContent language={language} level={level} />
+}
+
+function LevelPageContent({
+  language,
+  level,
+}: {
+  language: Language
+  level: string
+}) {
+  const course = getCourse(language, level)!
   const p = programmes.find((x) => x.slug === language)!
   const path = `${p.path}/${level.toLowerCase()}`
   usePageMeta({
-    title: `${course?.title ?? "Course"} Online | Glanzeuro Lingo`,
-    description: course
-      ? `${course.intro} Live online ${p.name} classes with speaking practice, assessments and a certificate on completion.`
-      : "",
+    title: `${course.title} Online | Glanzeuro Lingo`,
+    description: `Online ${p.name} ${course.level} (${course.descriptor}) course: live interactive classes, speaking practice, assessments and a certificate on completion.`,
     path,
   })
-  if (!course) return <Redirect to={p.path} replace />
   const levels = levelsFor(language)
 
   return (
@@ -361,7 +375,17 @@ export function LevelPage({
 
       <section className="band band--white">
         <div className="level-layout container">
-          <nav className="level-tabs" aria-label={`${p.name} levels`}>
+          <nav
+            className="level-tabs"
+            aria-label={`${p.name} levels`}
+            ref={(nav) => {
+              // On phones the tabs scroll sideways: bring the current one into view.
+              const active = nav?.querySelector<HTMLElement>(".is-active")
+              if (nav && active && nav.scrollWidth > nav.clientWidth)
+                nav.scrollLeft =
+                  active.offsetLeft - (nav.clientWidth - active.offsetWidth) / 2
+            }}
+          >
             <span>{p.name} levels</span>
             {levels.map((l) => (
               <Link

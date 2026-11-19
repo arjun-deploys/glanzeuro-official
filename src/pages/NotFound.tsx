@@ -1,12 +1,14 @@
+import { useLocation } from "wouter"
 import { PageFrame } from "@/components/layout/Layout"
 import { Button } from "@/components/ui"
 import { usePageMeta } from "@/lib/seo"
 
 export default function NotFound() {
+  const [location] = useLocation()
   usePageMeta({
     title: "Page not found | Glanzeuro Lingo",
     description: "The page you were looking for could not be found.",
-    path: window.location.pathname,
+    path: location,
     noindex: true,
   })
   return (

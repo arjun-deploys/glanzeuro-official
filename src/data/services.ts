@@ -7,10 +7,14 @@
  * Search this file for "CONFIRM" to find every open item.
  */
 
-import french from "../../public/course/french.png"
-import dutch from "../../public/course/dutch.png"
-import german from "../../public/course/german.png"
-import speak from "../../public/course/speak.png"
+import french from "@/assets/course/french.webp"
+import frenchThumb from "@/assets/course/french-640.webp"
+import dutch from "@/assets/course/dutch.webp"
+import dutchThumb from "@/assets/course/dutch-640.webp"
+import german from "@/assets/course/german.webp"
+import germanThumb from "@/assets/course/german-640.webp"
+import speak from "@/assets/course/speak.webp"
+import speakThumb from "@/assets/course/speak-640.webp"
 
 export type Faq = { q: string; a: string }
 export type Illustration =
@@ -23,7 +27,12 @@ export type Programme = {
   path: string
   name: string
   title: string
+  /** Large photo (1200px wide) for the course page hero. */
   image: string
+  /** Small photo (640px wide) for course cards and phones. */
+  thumb: string
+  /** Pixel size of `image`, so the browser can reserve space before it loads. */
+  imageSize: [number, number]
   flag: string[] // stripe colours, drawn as a round badge
   flagDirection: "vertical" | "horizontal"
   illustration: Illustration
@@ -92,6 +101,8 @@ export const programmes: Programme[] = [
     flag: ["#1f3f95", "#ffffff", "#e1323b"],
     flagDirection: "vertical",
     image: french,
+    thumb: frenchThumb,
+    imageSize: [1200, 675],
     illustration: "eiffel",
     levels: ["A1", "A2", "B1", "B2"],
     cardSummary:
@@ -199,6 +210,8 @@ export const programmes: Programme[] = [
     flag: ["#ae1c28", "#ffffff", "#21468b"],
     flagDirection: "horizontal",
     image: dutch,
+    thumb: dutchThumb,
+    imageSize: [1200, 927],
     illustration: "windmill",
     levels: ["A1", "A2", "B1", "B2"],
     cardSummary:
@@ -300,6 +313,8 @@ export const programmes: Programme[] = [
     flag: ["#111111", "#dd0000", "#ffce00"],
     flagDirection: "horizontal",
     image: german,
+    thumb: germanThumb,
+    imageSize: [1200, 675],
     illustration: "gate",
     // CONFIRM: add the German levels currently offered, e.g. ["A1", "A2"].
     levels: [],
@@ -377,6 +392,8 @@ export const programmes: Programme[] = [
     flag: [],
     flagDirection: "horizontal",
     image: speak,
+    thumb: speakThumb,
+    imageSize: [1200, 800],
     illustration: "speech",
     // CONFIRM: levels, duration and format for Spoken English.
     levels: [],

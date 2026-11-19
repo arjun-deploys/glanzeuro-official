@@ -39,7 +39,7 @@
   margin-top: 35px;
   text-transform: uppercase;
   letter-spacing: 0.11em;
-  font-size: 9px;
+  font-size: 12px;
   font-weight: 800;
 }
 .glaf-hero__meta span {
@@ -89,7 +89,7 @@
   color: var(--brand-black);
   text-transform: uppercase;
   letter-spacing: 0.15em;
-  font-size: 8px;
+  font-size: 11px;
   line-height: 1.5;
   font-weight: 800;
 }
@@ -175,7 +175,7 @@
   color: var(--muted);
   text-transform: uppercase;
   letter-spacing: 0.11em;
-  font-size: 8px;
+  font-size: 11px;
   font-weight: 800;
 }
 .glaf-card__title {
@@ -211,8 +211,8 @@
   align-items: flex-start;
 }
 .glaf-qr img {
-  width: 76px;
-  height: 76px;
+  width: 96px;
+  height: 96px;
   padding: 5px;
   background: #fff;
   border: 1px solid rgba(17, 17, 17, 0.14);
@@ -224,7 +224,7 @@
   color: var(--muted);
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  font-size: 7px;
+  font-size: 10px;
   font-weight: 800;
 }
 .glaf-download {
@@ -236,7 +236,7 @@
   color: var(--brand-pink);
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  font-size: 8px;
+  font-size: 11px;
   font-weight: 800;
   transition:
     color 0.2s var(--ease),

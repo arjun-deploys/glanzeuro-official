@@ -5,6 +5,7 @@ import {
   Globe2,
 } from "lucide-react"
 import hero from "/img/hero.webp"
+import heroSmall from "/img/hero-720.webp"
 import { PageFrame } from "@/components/layout/Layout"
 import { Button } from "@/components/ui"
 import { DEMO_HASH } from "@/lib/forms"
@@ -64,6 +65,8 @@ function Hero() {
         <div className="hero__art">
           <img
             src={hero}
+            srcSet={`${heroSmall} 720w, ${hero} 1177w`}
+            sizes="(max-width: 1000px) 100vw, 560px"
             alt="A smiling language learner holding books, with line drawings of the Eiffel Tower and Amsterdam canal houses"
             width={1177}
             height={896}

@@ -1,6 +1,27 @@
 import { useEffect } from "react"
 import { business } from "@/lib/siteData"
 
+export type PageMeta = {
+  title: string
+  description: string
+  path: string
+  noindex?: boolean
+}
+
+/**
+ * During the build-time pre-render (see scripts/prerender.mjs) there is no
+ * document, so the page's meta is recorded here and written into the static
+ * HTML file instead.
+ */
+export const ssrHead: { meta: PageMeta | null } = { meta: null }
+
+function recordForPrerender(meta: PageMeta) {
+  if (typeof document === "undefined") ssrHead.meta = meta
+}
+
+export const absoluteUrl = (path: string) =>
+  `${business.siteUrl}${path === "/" ? "/" : path}`
+
 function setMeta(attr: "name" | "property", key: string, content: string) {
   let el = document.head.querySelector<HTMLMetaElement>(
     `meta[${attr}="${key}"]`
@@ -13,8 +34,12 @@ function setMeta(attr: "name" | "property", key: string, content: string) {
   el.setAttribute("content", content)
 }
 
-function setCanonical(href: string) {
+function setCanonical(href: string | null) {
   let el = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]')
+  if (!href) {
+    el?.remove()
+    return
+  }
   if (!el) {
     el = document.createElement("link")
     el.rel = "canonical"
@@ -24,19 +49,11 @@ function setCanonical(href: string) {
 }
 
 /** Sets the title, meta description, canonical URL and social tags for a page. */
-export function usePageMeta({
-  title,
-  description,
-  path,
-  noindex = false,
-}: {
-  title: string
-  description: string
-  path: string
-  noindex?: boolean
-}) {
+export function usePageMeta(meta: PageMeta) {
+  recordForPrerender(meta)
+  const { title, description, path, noindex = false } = meta
   useEffect(() => {
-    const url = `${business.siteUrl}${path === "/" ? "/" : path}`
+    const url = absoluteUrl(path)
     document.title = title
     setMeta("name", "description", description)
     setMeta("property", "og:title", title)
@@ -49,6 +66,13 @@ export function usePageMeta({
       "robots",
       noindex ? "noindex, follow" : "index, follow, max-image-preview:large"
     )
-    setCanonical(url)
+    setCanonical(noindex ? null : url)
   }, [title, description, path, noindex])
+}
+
+/** Renders a JSON-LD block. Safe to use inside the page body. */
+export function jsonLd(data: unknown) {
+  return {
+    __html: JSON.stringify(data).replace(/</g, "\\u003c"),
+  }
 }

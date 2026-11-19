@@ -2116,3 +2116,46 @@ a.level-grid__item:hover {
     animation-duration: 0.01ms !important;
   }
 }
+
+/* ------------------------------------------------- handover fixes */
+
+/* Testimonials: an odd last card sits centred instead of leaving a gap. */
+.quote-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+}
+.quote-grid > * {
+  flex: 0 1 calc((100% - 48px) / 3);
+  min-width: 0;
+}
+@media (max-width: 1000px) {
+  .quote-grid > * {
+    flex-basis: calc((100% - 24px) / 2);
+  }
+}
+@media (max-width: 720px) {
+  .quote-grid > * {
+    flex-basis: 100%;
+  }
+}
+
+/* Breadcrumb links: comfortable tap targets. */
+.crumbs a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+}
+
+/* Long button labels ("Enquire About Interview Preparation") wrap on
+   phones instead of pushing the page wider than the screen. */
+@media (max-width: 640px) {
+  .btn {
+    white-space: normal;
+    text-align: center;
+  }
+  .btn--md {
+    padding-block: 12px;
+  }
+}

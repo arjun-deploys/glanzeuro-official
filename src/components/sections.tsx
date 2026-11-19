@@ -45,8 +45,15 @@ export function CourseCard({
   return (
     <article className="course-card">
       <div className="course-card__art">
-        {/* <Art name={p.illustration} /> */}
-        <img src={p.image} className="art" />
+        <img
+          src={p.thumb}
+          alt=""
+          className="art"
+          width={640}
+          height={Math.round((640 * p.imageSize[1]) / p.imageSize[0])}
+          loading="lazy"
+          decoding="async"
+        />
         <FlagBadge colors={p.flag} direction={p.flagDirection} />
       </div>
       <div className="course-card__body">
@@ -294,7 +301,10 @@ export function Journey({ heading = "h2" }: { heading?: "h2" | "h3" }) {
 }
 
 export function TestimonialsSection({ asPage = false }: { asPage?: boolean }) {
-  const items = publishedTestimonials
+  // The home page shows three; the Testimonials page shows them all.
+  const items = asPage
+    ? publishedTestimonials
+    : publishedTestimonials.slice(0, 3)
   return (
     <section
       className="band band--blush"
@@ -307,7 +317,7 @@ export function TestimonialsSection({ asPage = false }: { asPage?: boolean }) {
             id="testimonials-title"
             title="What our learners say"
             action={
-              items.length > 0 ? (
+              publishedTestimonials.length > items.length ? (
                 <Button href="/testimonials" variant="outline" size="sm">
                   Read All Testimonials
                 </Button>
@@ -316,7 +326,7 @@ export function TestimonialsSection({ asPage = false }: { asPage?: boolean }) {
           />
         )}
         {items.length > 0 ? (
-          <div className="grid-3">
+          <div className="quote-grid">
             {items.map((t) => (
               <figure key={t.name + t.course} className="quote-card">
                 <Quote size={28} aria-hidden="true" />

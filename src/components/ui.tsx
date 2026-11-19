@@ -1,7 +1,8 @@
-import { Link } from "wouter"
+import { Link, useLocation } from "wouter"
 import { ArrowRight, CheckCircle2, ChevronRight } from "lucide-react"
 import type { ReactNode } from "react"
 import { whatsappLink } from "@/lib/siteData"
+import { absoluteUrl, jsonLd } from "@/lib/seo"
 
 type ButtonProps = {
   href: string
@@ -148,8 +149,24 @@ export function SectionHead({
 export type Crumb = { label: string; href?: string }
 
 export function Breadcrumbs({ items }: { items: Crumb[] }) {
+  const [location] = useLocation()
+  const trail = [{ label: "Home", href: "/" }, ...items]
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: trail.map((c, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: c.label,
+      item: absoluteUrl(c.href ?? location),
+    })),
+  }
   return (
     <nav aria-label="Breadcrumb" className="crumbs">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLd(schema)}
+      />
       <ol>
         <li>
           <Link href="/">Home</Link>
@@ -222,6 +239,18 @@ export function LevelChips({
 export function FaqList({ items }: { items: { q: string; a: string }[] }) {
   return (
     <div className="faq">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLd({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: items.map((f) => ({
+            "@type": "Question",
+            name: f.q,
+            acceptedAnswer: { "@type": "Answer", text: f.a },
+          })),
+        })}
+      />
       {items.map((f) => (
         <details key={f.q}>
           <summary>
