@@ -1,12 +1,6 @@
 import { useEffect, useId, useState } from "react"
-import { CheckCircle2, Loader2, Mail, Phone } from "lucide-react"
-import {
-  business,
-  enquiryEndpoint,
-  mailHref,
-  telHref,
-  whatsappLink,
-} from "@/lib/siteData"
+import { CheckCircle2, Mail, Phone } from "lucide-react"
+import { business, mailHref, telHref, whatsappLink } from "@/lib/siteData"
 import { WhatsAppIcon } from "@/components/ui"
 import { DEMO_HASH, interestGroups } from "@/lib/forms"
 
@@ -40,7 +34,7 @@ const requestTypesFor: Record<Variant, string[]> = {
   ],
 }
 
-type Status = "idle" | "sending" | "sent" | "error"
+type Status = "idle" | "sent"
 
 export function EnquiryForm({
   interest = "",
@@ -66,7 +60,7 @@ export function EnquiryForm({
   const isStudy = variant === "study"
 
   const [status, setStatus] = useState<Status>("idle")
-  const [error, setError] = useState("")
+  const [sentLink, setSentLink] = useState("")
   const [sentName, setSentName] = useState("")
   // "#book-demo" or "?topic=demo" preselects the second request type;
   // "?topic=French" (any listed option) preselects the course or service.
@@ -97,7 +91,12 @@ export function EnquiryForm({
     return () => window.removeEventListener("hashchange", onHash)
   }, [requestTypes])
 
-  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+  /**
+   * Turns the filled-in form into a WhatsApp message and opens WhatsApp
+   * (the app on phones, WhatsApp Web or Desktop on computers) with the
+   * message ready to send to the Glanzeuro Lingo number.
+   */
+  function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
     const form = event.currentTarget
     const data = Object.fromEntries(new FormData(form).entries()) as Record<
@@ -105,52 +104,34 @@ export function EnquiryForm({
       string
     >
     if (data._honey) return // bot
-    // Drop the internal radio name and any empty optional fields.
-    for (const key of Object.keys(data)) {
-      if (
-        key.endsWith("-request") ||
-        (key !== "_honey" && !String(data[key]).trim())
-      )
-        delete data[key]
-    }
 
-    setStatus("sending")
-    setError("")
-    const payload = {
-      ...data,
-      "Request type": request,
-      Page: window.location.href,
-      _subject: `Website enquiry: ${data["Interested in"] || "General"} (${request})`,
-      _template: "table",
-      _captcha: "false",
-    }
-
-    try {
-      const res = await fetch(enquiryEndpoint, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify(payload),
-      })
-      const json = (await res.json().catch(() => ({}))) as {
-        success?: string | boolean
-        message?: string
-      }
-      if (!res.ok || String(json.success) !== "true") {
-        throw new Error(json.message || `Request failed (${res.status})`)
-      }
-      setSentName((data["Full name"] || "").split(" ")[0])
-      setStatus("sent")
-      form.reset()
-    } catch (err) {
-      console.error("Enquiry form error:", err)
-      setStatus("error")
-      setError(
-        "Your enquiry could not be sent. Check your connection and try again, or contact us on WhatsApp, by phone or by email."
+    const lines = [
+      "Hello Glanzeuro Lingo, I would like to make an enquiry.",
+      "",
+      `*Request:* ${request}`,
+    ]
+    for (const [key, value] of Object.entries(data)) {
+      const text = String(value).trim()
+      // Skip the internal radio name, the spam trap and empty optional fields.
+      if (key.endsWith("-request") || key === "_honey" || !text) continue
+      lines.push(
+        key === "Message" ? `\n*Message:*\n${text}` : `*${key}:* ${text}`
       )
     }
+    lines.push(
+      "",
+      `(Sent from ${window.location.origin}${window.location.pathname})`
+    )
+
+    const link = whatsappLink(lines.join("\n"))
+    // Open straight away (inside the click) so browsers don't block it.
+    const opened = window.open(link, "_blank", "noopener,noreferrer")
+    if (!opened) window.location.href = link
+
+    setSentLink(link)
+    setSentName((data["Full name"] || "").trim().split(/\s+/)[0])
+    setStatus("sent")
+    form.reset()
   }
 
   const waMessage =
@@ -205,14 +186,23 @@ export function EnquiryForm({
         <div className="enquiry__done" role="status" aria-live="polite">
           <CheckCircle2 size={40} aria-hidden="true" />
           <h3>
-            Thank you{sentName ? `, ${sentName}` : ""}. Your enquiry has been
-            sent.
+            Thank you{sentName ? `, ${sentName}` : ""}. WhatsApp has opened with
+            your enquiry.
           </h3>
           <p>
-            We have received your details and will contact you using the phone
-            number or email you shared. For a quicker reply, message us on
-            WhatsApp.
+            Your details are filled in. Tap <strong>Send</strong> in WhatsApp to
+            send them to us, and we will reply there. If WhatsApp did not open,
+            use the button below.
           </p>
+          <a
+            href={sentLink}
+            className="btn btn--primary btn--md btn--whatsapp"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span>Open WhatsApp</span>
+            <WhatsAppIcon size={18} />
+          </a>
           <button
             type="button"
             className="btn btn--outline btn--sm"
@@ -385,30 +375,14 @@ export function EnquiryForm({
             aria-hidden="true"
           />
 
-          {status === "error" && (
-            <p className="form-error" role="alert">
-              {error}
-            </p>
-          )}
-
           <div className="enquiry__submit">
-            <button
-              type="submit"
-              className="btn btn--primary btn--md"
-              disabled={status === "sending"}
-            >
-              {status === "sending" ? (
-                <>
-                  <Loader2 size={17} className="spin" aria-hidden="true" />
-                  <span>Sending…</span>
-                </>
-              ) : (
-                <span>{submitLabel}</span>
-              )}
+            <button type="submit" className="btn btn--primary btn--md">
+              <span>{submitLabel}</span>
+              <WhatsAppIcon size={18} />
             </button>
             <p className="privacy">
-              We use your details only to reply to this enquiry. We do not share
-              them or add you to marketing lists.
+              This opens WhatsApp with your details filled in, ready to send. We
+              use them only to reply to your enquiry.
             </p>
           </div>
         </form>

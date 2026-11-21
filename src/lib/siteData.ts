@@ -26,16 +26,11 @@ export const phone = business.phone
 export const enrolFormUrl = "https://forms.gle/tP1GzgJZM8DoViFw6"
 
 /**
- * Where enquiry forms are delivered.
- *
- * Uses FormSubmit (https://formsubmit.co), which forwards each submission to
- * the business email with no server needed. The FIRST submission triggers an
- * activation email to enquiry@glanzeurolingo.com: click the link in it once and
- * every later enquiry arrives normally. After activation FormSubmit also offers
- * a random alias you can paste here instead of the email address.
+ * Enquiry forms send to WhatsApp: on submit they open a chat with
+ * business.countryCode + business.phone, with the filled-in details as the
+ * message (see src/components/EnquiryForm.tsx). To change the receiving
+ * number, change `phone` above.
  */
-export const enquiryEndpoint = `https://formsubmit.co/ajax/${business.email}`
-
 export const defaultWhatsappMessage =
   "Hello Glanzeuro Lingo, I would like to know more about your courses."
 

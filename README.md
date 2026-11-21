@@ -27,16 +27,15 @@ sitemap never goes out of date. When you add a page, add its route to `routes` i
 
 A ready-to-upload build is included in `dist/` (built from this exact code).
 
-
 Upload the **contents** of `dist/` (not the folder itself). Pages are files such as
 `dist/courses/french.html`, served at the clean address `/courses/french`; unknown addresses get
 `404.html` with a real 404 status. Rules for the common hosts are included:
 
-| Host | File | Notes |
-| --- | --- | --- |
-| Apache, cPanel, Hostinger | `public/.htaccess` | Copied into `dist/` by the build. Upload the contents of `dist/`. |
-| Netlify | `public/_redirects`, `public/_headers` | Copied into `dist/` by the build. |
-| Vercel | `vercel.json` | At the project root. Uses `cleanUrls`. |
+| Host                      | File                                   | Notes                                                             |
+| ------------------------- | -------------------------------------- | ----------------------------------------------------------------- |
+| Apache, cPanel, Hostinger | `public/.htaccess`                     | Copied into `dist/` by the build. Upload the contents of `dist/`. |
+| Netlify                   | `public/_redirects`, `public/_headers` | Copied into `dist/` by the build.                                 |
+| Vercel                    | `vercel.json`                          | At the project root. Uses `cleanUrls`.                            |
 
 The Apache rules were tested on a real Apache server: clean URLs, trailing-slash and `.html`
 redirects, old-URL redirects (also with capital letters, e.g. `/dutch/B2`), 404 status, gzip and
@@ -49,31 +48,42 @@ are not applied.
 
 **After going live:** submit `https://glanzeurolingo.com/sitemap.xml` in Google Search Console.
 
-## Enquiry forms: one-time activation
+## Enquiry forms: sent by WhatsApp
 
-Every page with a form sends enquiries to **enquiry@glanzeurolingo.com** through
-[FormSubmit](https://formsubmit.co), which needs no server.
+Every enquiry form on the site sends to WhatsApp. When a visitor presses the submit button, the
+browser checks the required fields, then opens WhatsApp (the app on phones, WhatsApp Web or
+Desktop on computers) with a chat to **+91 93458 81643** and all their answers already typed in:
 
-1. After deploying, submit one test enquiry from the live site.
-2. FormSubmit emails an activation link to enquiry@glanzeurolingo.com. Click it once.
-3. Submit another test from desktop and from a phone and confirm both arrive.
+```
+Hello Glanzeuro Lingo, I would like to make an enquiry.
 
-Until step 2 is done, the form shows an error and offers WhatsApp, phone and email instead.
-After activation FormSubmit can give you a random alias so the email address is not in the
-page code; paste it into `enquiryEndpoint` in `src/lib/siteData.ts`. To use a different form
-service, change `enquiryEndpoint` and the response check in `src/components/EnquiryForm.tsx`.
+*Request:* A free demo class
+*Full name:* Priya Kumar
+*Phone / WhatsApp:* +91 98765 43210
+*Interested in:* Dutch
+...
+(Sent from https://glanzeurolingo.com/contact)
+```
+
+The visitor then taps **Send**. The page shows a confirmation with an "Open WhatsApp" button in
+case WhatsApp did not open. Nothing needs activating, and no third-party form service is used.
+To change the receiving number, edit `phone` and `phoneDisplay` in `src/lib/siteData.ts`.
+
+Note: the enquiry only reaches you if the visitor presses Send in WhatsApp, and they need
+WhatsApp installed or WhatsApp Web available. Phone and email links stay on every form for
+anyone who prefers them.
 
 ## Where to edit content
 
-| What | File |
-| --- | --- |
-| Phone, email, WhatsApp message, enrolment form link, navigation | `src/lib/siteData.ts` |
-| Testimonials and home-page stats | `src/lib/siteData.ts` |
-| Language courses, TEF and TCF, career services, study abroad, Why Choose Us, learning journey | `src/data/services.ts` |
-| Level-by-level syllabus for French and Dutch, A1 to B2 | `src/data/courses.ts` |
-| Course photos (large 1200px and small 640px WebP) | `src/assets/course/` |
-| Colours, typography, layout | `src/index.css` |
-| Line-art illustrations | `src/components/Illustrations.tsx` |
+| What                                                                                          | File                               |
+| --------------------------------------------------------------------------------------------- | ---------------------------------- |
+| Phone, email, WhatsApp message, enrolment form link, navigation                               | `src/lib/siteData.ts`              |
+| Testimonials and home-page stats                                                              | `src/lib/siteData.ts`              |
+| Language courses, TEF and TCF, career services, study abroad, Why Choose Us, learning journey | `src/data/services.ts`             |
+| Level-by-level syllabus for French and Dutch, A1 to B2                                        | `src/data/courses.ts`              |
+| Course photos (large 1200px and small 640px WebP)                                             | `src/assets/course/`               |
+| Colours, typography, layout                                                                   | `src/index.css`                    |
+| Line-art illustrations                                                                        | `src/components/Illustrations.tsx` |
 
 ## Before publishing: details to confirm
 
@@ -146,4 +156,6 @@ structured data where relevant.
 - All 49 resized QR codes decoded and checked against the originals: same links.
 - Lighthouse (simulated mid-range phone on slow 4G): SEO 100, Best Practices 96–100,
   Accessibility 96–100, Performance 77–87, layout shift 0.
-- Live delivery to the inbox still needs testing after the FormSubmit activation above.
+- Enquiry forms (general, course, exam, career and study-abroad versions): empty or invalid
+  forms are blocked, and a filled form opens wa.me/919345881643 with every answer in the message.
+  Do one real test from a phone after going live.
